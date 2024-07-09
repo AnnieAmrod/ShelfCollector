@@ -16,10 +16,12 @@ class Genero(models.Model):
                             blank=True)
 
     class Meta:
+        verbose_name = 'Género'
         verbose_name_plural = 'Géneros'
 
     def __str__(self):
         return self.nombre
+
 
 class Carpeta(models.Model):
     nombre = models.CharField(
