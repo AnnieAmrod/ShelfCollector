@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SelfcollectorappConfig(AppConfig):
+class FunkosappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'selfcollectorapp'
+    name = 'funkosapp'

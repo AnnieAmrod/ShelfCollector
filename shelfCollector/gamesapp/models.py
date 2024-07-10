@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-from shelfCollector.common.models import Genero
+# from shelfCollector.common.models import Genero
+from common.models import Genero
 
 
 class Distibuidor(models.Model):
@@ -178,7 +179,7 @@ class Videojuego(models.Model):
     nombre = models.CharField(
                             max_length=60,
                             verbose_name='Nombre',
-                            unique=True,
+                            #unique=True,
                             null=False,
                             blank=False)
     descripcion = models.TextField(
@@ -204,31 +205,26 @@ class Videojuego(models.Model):
     distribuidor = models.ManyToManyField(
                             Distibuidor,
                             verbose_name='Distribuidor',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_distribuidores')
     desarrollador = models.ManyToManyField(
                             Desarrollador,
                             verbose_name='Desarrollador',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_desarrolladores')
     modo_juego = models.ManyToManyField(
                             Modo,
                             verbose_name='Modo de Juego',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_modos_juego')
     genero = models.ManyToManyField(
                             Genero,
                             verbose_name='Género',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_generos')
     plataforma = models.ManyToManyField(
                             Plataforma,
                             verbose_name='Plataforma',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_plataformas')
     precio = models.CharField(
@@ -245,7 +241,6 @@ class Videojuego(models.Model):
     tipo_contenido = models.ManyToManyField(
                             TipoContenido,
                             verbose_name='Tipo de Contenido',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_tipo_contenido')
     tenemos = models.CharField(
@@ -274,13 +269,13 @@ class Videojuego(models.Model):
     programa = models.ManyToManyField(
                             TipoContenido,
                             verbose_name='Programa',
-                            null=False,
                             blank=False,
                             related_name='videojuegos_programa')
 
     class Meta:
         verbose_name = 'Videojuego'
         verbose_name_plural = 'Videojuegos'
+        unique_together = ['nombre', 'anio']
 
     def __str__(self):
         return self.nombre

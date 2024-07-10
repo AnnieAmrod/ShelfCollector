@@ -50,9 +50,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # Aplicaciones propias
-    'selfcollectorapp',
-    'usuario',
     'common',
+    'usuario',
+    'gamesapp',
+
 
 ]
 
