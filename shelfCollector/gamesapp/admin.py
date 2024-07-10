@@ -42,7 +42,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
                     'display_desarrolladores', 'display_modos_juego', 'display_generos',
                     'display_plataformas', 'precio', 'display_edad_recomendada',
                     'display_tipo_contenido', 'tenemos', 'wish_list', 'display_coleccion',
-                    'formato', 'display_programa']
+                    'formato', 'display_programa', 'display_carpetas']
 
     def display_distribuidores(self, obj):
         return ", ".join([distribuidor.nombre for distribuidor in obj.distribuidor.all()])
@@ -88,6 +88,11 @@ class VideojuegoAdmin(admin.ModelAdmin):
         return ", ".join([programa.nombre for programa in obj.programa.all()])
 
     display_programa.short_description = 'Programa'
+
+    def display_carpetas(self, obj):
+        return ", ".join([carpetas.nombre for carpetas in obj.carpetas.all()])
+
+    display_carpetas.short_description = 'Carpetas'
 
 
 class RecopilacionAdmin(admin.ModelAdmin):

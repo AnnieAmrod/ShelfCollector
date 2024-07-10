@@ -2,21 +2,21 @@ from django.db import models
 
 # Create your models here.
 # from shelfCollector.common.models import Genero
-from common.models import Genero
+from common.models import Genero, Carpeta
 
 
 class Distibuidor(models.Model):
     nombre = models.CharField(
-        max_length=60,
-        verbose_name='Nombre',
-        unique=True,
-        null=False,
-        blank=False)
+                            max_length=60,
+                            verbose_name='Nombre',
+                            unique=True,
+                            null=False,
+                            blank=False)
     descripcion = models.TextField(
-        verbose_name='Descripcion',
-        max_length=4000,
-        null=True,
-        blank=True)
+                            verbose_name='Descripcion',
+                            max_length=4000,
+                            null=True,
+                            blank=True)
 
     class Meta:
         verbose_name = 'Distibuidor'
@@ -28,16 +28,16 @@ class Distibuidor(models.Model):
 
 class Desarrollador(models.Model):
     nombre = models.CharField(
-        max_length=60,
-        verbose_name='Nombre',
-        unique=True,
-        null=False,
-        blank=False)
+                            max_length=60,
+                            verbose_name='Nombre',
+                            unique=True,
+                            null=False,
+                            blank=False)
     descripcion = models.TextField(
-        verbose_name='Descripcion',
-        max_length=4000,
-        null=True,
-        blank=True)
+                            verbose_name='Descripcion',
+                            max_length=4000,
+                            null=True,
+                            blank=True)
 
     class Meta:
         verbose_name = 'Desarrollador'
@@ -113,39 +113,39 @@ class TipoContenido(models.Model):
 
 
 class Coleccion(models.Model):
-                            nombre = models.CharField(
+    nombre = models.CharField(
                                 max_length=60,
                                 verbose_name='Nombre',
                                 unique=True,
                                 null=False,
                                 blank=False)
-                            descripcion = models.TextField(
+    descripcion = models.TextField(
                                 verbose_name='Descripcion',
                                 max_length=4000,
                                 null=True,
                                 blank=True)
-                            url = models.URLField(max_length=70)
+    url = models.URLField(max_length=70)
 
-                            class Meta:
-                                verbose_name = 'Colección'
-                                verbose_name_plural = 'Colecciones'
+    class Meta:
+        verbose_name = 'Colección'
+        verbose_name_plural = 'Colecciones'
 
-                            def __str__(self):
-                                return self.nombre
+    def __str__(self):
+        return self.nombre
 
 
 class Programa(models.Model):
     nombre = models.CharField(
-        max_length=10,
-        verbose_name='Nombre',
-        unique=True,
-        null=False,
-        blank=False)
+                            max_length=10,
+                            verbose_name='Nombre',
+                            unique=True,
+                            null=False,
+                            blank=False)
     descripcion = models.TextField(
-        verbose_name='Descripcion',
-        max_length=4000,
-        null=True,
-        blank=True)
+                            verbose_name='Descripcion',
+                            max_length=4000,
+                            null=True,
+                            blank=True)
 
     class Meta:
         verbose_name = 'Programa'
@@ -195,8 +195,8 @@ class Videojuego(models.Model):
     anio = models.CharField(
                             max_length=4,
                             verbose_name='Año de publicación',
-                            blank=True,
-                            null=True)
+                            blank=False,
+                            null=False)
     img = models.CharField(
                             max_length=40,
                             verbose_name='Imagen',
@@ -257,20 +257,25 @@ class Videojuego(models.Model):
                             Coleccion,
                             verbose_name='Colección',
                             on_delete=models.CASCADE,
-                            null=False,
-                            blank=False)
+                            null=True,
+                            blank=True)
     formato = models.CharField(
                             max_length=20,
                             verbose_name='Formato',
                             choices=FORMATO_CHOICES,
                             default=FISICO,
-                            null=False,
-                            blank=False)
+                            null=True,
+                            blank=True)
     programa = models.ManyToManyField(
                             TipoContenido,
                             verbose_name='Programa',
-                            blank=False,
+                            blank=True,
                             related_name='videojuegos_programa')
+    carpeta = models.ManyToManyField(
+                            Carpeta,
+                            verbose_name='Carpeta',
+                            blank=True,
+                            related_name='videojuegos_carpetas')
 
     class Meta:
         verbose_name = 'Videojuego'

@@ -25,16 +25,16 @@ class Genero(models.Model):
 
 class Carpeta(models.Model):
     nombre = models.CharField(
-        max_length=30,
-        verbose_name='Nombre',
-        unique=True,
-        null=False,
-        blank=False)
+                            max_length=30,
+                            verbose_name='Nombre',
+                            unique=True,
+                            null=False,
+                            blank=False)
     descripcion = models.TextField(
-        verbose_name='Descripcion',
-        max_length=300,
-        null=True,
-        blank=True)
+                            verbose_name='Descripcion',
+                            max_length=300,
+                            null=True,
+                            blank=True)
 
     class Meta:
         verbose_name_plural = 'Carpetas'
