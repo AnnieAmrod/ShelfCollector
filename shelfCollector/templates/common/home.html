@@ -1,0 +1,17 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <a href="{% url 'panel' %}"><img src="{% static 'shelf_collector_logo.png' %}" alt="Logo" class="img-fluid d-block mx-auto mb-4"></a>
+            <div class="d-flex justify-content-between">
+                <a href="/accounts/login" class="btn btn-lg mr-4">Iniciar sesión</a>
+                <a href="{% url 'panel' %}" class="btn btn-lg">Entrar como invitado</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

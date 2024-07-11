@@ -68,6 +68,15 @@ class Tipo(models.Model):
 
 
 class Funko(models.Model):
+    SI = 'j'
+    NO = 'n'
+    RECOPILACION = 'r'
+    TENEMOS_CHOICES = {
+        (SI, 'Juego'),
+        (NO, 'No tenemos'),
+        (RECOPILACION, 'Recopilación'),
+    }
+
     n_coleccion = models.CharField(
                             max_length=5,
                             verbose_name='Número de Colección',
@@ -111,6 +120,13 @@ class Funko(models.Model):
     num_serie = models.CharField(
                             max_length=40,
                             verbose_name='Número de Serie',
+                            blank=True,
+                            null=True)
+    tenemos = models.CharField(
+                            max_length=1,
+                            verbose_name='Tenemos',
+                            choices=TENEMOS_CHOICES,
+                            default=SI,
                             blank=True,
                             null=True)
     wish_list = models.BooleanField(

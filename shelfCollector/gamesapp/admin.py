@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.utils.text import Truncator
 
 # Register your models here.
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada,
@@ -38,11 +40,23 @@ class ProgramaAdmin(admin.ModelAdmin):
 
 
 class VideojuegoAdmin(admin.ModelAdmin):
-    list_display = list_display_links = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'display_distribuidores',
+    list_display = list_display_links = ['nombre', 'display_descripcion', 'display_sinopsis', 'anio', 'img', 'display_distribuidores',
                     'display_desarrolladores', 'display_modos_juego', 'display_generos',
                     'display_plataformas', 'precio', 'display_edad_recomendada',
                     'display_tipo_contenido', 'tenemos', 'wish_list', 'display_coleccion',
                     'formato', 'display_programa', 'display_carpetas']
+
+    def display_descripcion(self, obj):
+        truncated_text = Truncator(obj.descripcion).chars(60)
+        return format_html(truncated_text)
+
+    display_descripcion.short_description = 'Sinopsis'
+
+    def display_sinopsis(self, obj):
+        truncated_text = Truncator(obj.sinopsis).chars(60)
+        return format_html(truncated_text)
+
+    display_sinopsis.short_description = 'Sinopsis'
 
     def display_distribuidores(self, obj):
         return ", ".join([distribuidor.nombre for distribuidor in obj.distribuidor.all()])
@@ -55,7 +69,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
     display_desarrolladores.short_description = 'Desarrolladores'
 
     def display_modos_juego(self, obj):
-        return ", ".join([modo.nombre for modo in obj.modo_juego.all()])
+        return ", ".join([modo.modo_juego for modo in obj.modo_juego.all()])
 
     display_modos_juego.short_description = 'Modos de Juego'
 
@@ -70,7 +84,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
     display_plataformas.short_description = 'Plataformas'
 
     def display_edad_recomendada(self, obj):
-        return obj.edad_recomendada.nombre
+        return f"PEGI {obj.edad_recomendada.numero} ({obj.edad_recomendada.color}) {obj.edad_recomendada.descripcion}"
 
     display_edad_recomendada.short_description = 'Edad Recomendada'
 
@@ -80,7 +94,9 @@ class VideojuegoAdmin(admin.ModelAdmin):
     display_tipo_contenido.short_description = 'Tipo de Contenido'
 
     def display_coleccion(self, obj):
-        return obj.coleccion.nombre
+        if obj.coleccion:
+            return obj.coleccion.nombre
+        return "--"
 
     display_coleccion.short_description = 'Colección'
 
@@ -90,7 +106,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
     display_programa.short_description = 'Programa'
 
     def display_carpetas(self, obj):
-        return ", ".join([carpetas.nombre for carpetas in obj.carpetas.all()])
+        return ", ".join([carpetas.nombre for carpetas in obj.carpeta.all()])
 
     display_carpetas.short_description = 'Carpetas'
 

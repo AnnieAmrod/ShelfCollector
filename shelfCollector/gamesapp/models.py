@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 # from shelfCollector.common.models import Genero
 from common.models import Genero, Carpeta
+from ckeditor.fields import RichTextField
 
 
 class Distibuidor(models.Model):
@@ -92,7 +93,6 @@ class EdadRecomendada(models.Model):
     color = models.CharField(
                             max_length=8,
                             verbose_name='Color',
-                            unique=True,
                             null=False,
                             blank=False)
     descripcion = models.CharField(
@@ -182,16 +182,17 @@ class Videojuego(models.Model):
                             #unique=True,
                             null=False,
                             blank=False)
-    descripcion = models.TextField(
-                            verbose_name='Descripcion',
+    descripcion = models.CharField(
                             max_length=4000,
+                            verbose_name='Descripción',
                             null=True,
                             blank=True)
-    sinopsis = models.TextField(
-                            verbose_name='Sinopsis',
-                            max_length=4000,
-                            null=True,
-                            blank=True)
+    sinopsis = RichTextField(max_length=4000, verbose_name='Sinopsis', null=True, blank=True)
+    # sinopsis = models.TextField(
+    #                        verbose_name='Sinopsis',
+    #                        max_length=4000,
+    #                        null=True,
+    #                        blank=True)
     anio = models.CharField(
                             max_length=4,
                             verbose_name='Año de publicación',
@@ -241,7 +242,7 @@ class Videojuego(models.Model):
     tipo_contenido = models.ManyToManyField(
                             TipoContenido,
                             verbose_name='Tipo de Contenido',
-                            blank=False,
+                            blank=True,
                             related_name='videojuegos_tipo_contenido')
     tenemos = models.CharField(
                             max_length=1,

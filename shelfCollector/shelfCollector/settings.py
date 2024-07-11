@@ -48,12 +48,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'ckeditor',
 
     # Aplicaciones propias
     'common',
     'usuario',
     'gamesapp',
     'funkosapp',
+    'booksapp',
 
 
 ]
@@ -170,3 +172,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuración CKEditor
+# Información extraída de: github.com/django-ckeditor/django-ckeditor
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline''NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft',
+            'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
+        ],
+        'width': '235px',
+        'height': '280px',
+    }
+}
