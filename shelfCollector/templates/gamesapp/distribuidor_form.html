@@ -1,0 +1,19 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Para crear elementos -->
+    <h2>{{object|yesno:'Actualizar videojuego,Creación de un nuevo videojuego'}}</h2>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <!-- csrf_token es para hacer más segura la aplicación ante un posible robo de token (cross-site-scripting)(man-in-the-middle) -->
+
+        {{ form.as_p }}
+
+        <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}">
+        {% if object %}
+            <a class="btn" href="{% url 'm_encontrada_delete' object.id %}"> Eliminar </a>
+        {% endif %}
+    </form>
+
+</div>
+{% endblock %}

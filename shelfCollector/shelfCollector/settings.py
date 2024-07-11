@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dotenv
+from django.contrib.messages import constants as messages
 
 
 dotenv.load_dotenv()
@@ -186,3 +187,5 @@ CKEDITOR_CONFIGS = {
         'height': '280px',
     }
 }
+
+MESSAGE_TAGS = {messages.ERROR: 'danger'}
