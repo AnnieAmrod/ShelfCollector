@@ -2,19 +2,21 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 from .models import (Distibuidor, Desarrollador, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
+from .mixins import DistribuidorMixin
 
 
 # Create your views here.
-class DistribuidorCreateView(SuccessMessageMixin, CreateView):
-    model = Distibuidor
-    fields = ['nombre', 'descripcion']
+class DistribuidorCreateView(DistribuidorMixin, SuccessMessageMixin, CreateView):
+    # model = Distibuidor
+    # fields = ['nombre', 'descripcion']
     # success_url = reverse_lazy('distribuidor_list')
 
-    def get_success_url(self):
-        object = self.object
-        return reverse_lazy('distribuidor_update', kwargs={'pk': object.id})
+    # def get_success_url(self):
+    #     object = self.object
+    #     return reverse_lazy('distribuidor_update', kwargs={'pk': object.id})
 
     success_message = "Distribuidor creado exitosamente"
 
@@ -22,16 +24,14 @@ class DistribuidorCreateView(SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class DistribuidorUpdateView(UpdateView):
+class DistribuidorUpdateView(DistribuidorMixin, SuccessMessageMixin, UpdateView):
     model = Distibuidor
-    fields = ['nombre', 'descripcion']
-
+    # fields = ['nombre', 'descripcion']
     # success_url = reverse_lazy('distribuidor_list')
 
-    def get_success_url(self):
-        object = self.object
-
-        return reverse_lazy('distribuidor_update', kwargs={'pk': object.id})
+    # def get_success_url(self):
+    #     object = self.object
+    #     return reverse_lazy('distribuidor_update', kwargs={'pk': object.id})
 
     success_message = "Distribuidor editado exitosamente"
 
@@ -42,7 +42,7 @@ class DistribuidorUpdateView(UpdateView):
 class DistribuidorDeleteView(DeleteView):
     model = Distibuidor
     success_url = reverse_lazy('distribuidor')
-    template_name = 'gamesapp/distribuidor_confirm_delete'
+    template_name = 'gamesapp/distribuidor_confirm_delete.html'
 
 
 class DesarrolladorCreateView(CreateView):

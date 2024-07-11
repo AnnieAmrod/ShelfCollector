@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('distribuidor_create/', views.DistribuidorCreateView.as_view(), name='distribuidor_create'),
-    path('distribuidor_create/<int:pk>/', views.DistribuidorUpdateView.as_view(), name='distribuidor_update'),
+    path('distribuidor_update/<int:pk>/', views.DistribuidorUpdateView.as_view(), name='distribuidor_update'),
     path('distribuidor_delete/<int:pk>/', views.DistribuidorDeleteView.as_view(), name='distribuidor_delete')
 ]
 
