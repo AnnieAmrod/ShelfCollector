@@ -1,9 +1,9 @@
 {% extends 'common/base_gamesapp.html' %}
 {% block content %}
 <div class="container">
-<h2>Eliminar un Distribuidor</h2>
+<h2>Eliminar un Desarrollador</h2>
 <form method="post">{% csrf_token %}
-<p>¿Está seguro que quiere eliminar este distribuidor "{{ object }}"?</p>
+<p>¿Está seguro que quiere eliminar este desarrollador "{{ object }}"?</p>
 {{ form }}
 <input type="submit" value="Confirmar" class="btn">
 </form>

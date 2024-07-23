@@ -213,7 +213,7 @@ class Videojuego(models.Model):
                             blank=False,
                             null=False)
     img = models.CharField(
-                            max_length=40,
+                            max_length=100,
                             verbose_name='Imagen',
                             blank=True,
                             null=True)
@@ -271,7 +271,7 @@ class Videojuego(models.Model):
     coleccion = models.ForeignKey(
                             Coleccion,
                             verbose_name='Colección',
-                            on_delete=models.CASCADE,
+                            on_delete=models.PROTECT,
                             null=True,
                             blank=True)
     formato = models.CharField(
@@ -282,7 +282,7 @@ class Videojuego(models.Model):
                             null=True,
                             blank=True)
     programa = models.ManyToManyField(
-                            TipoContenido,
+                            Programa,
                             verbose_name='Programa',
                             blank=True,
                             related_name='videojuegos_programa')

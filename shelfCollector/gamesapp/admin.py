@@ -5,6 +5,7 @@ from django.utils.text import Truncator
 # Register your models here.
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada,
                      TipoContenido, Coleccion, Programa, Videojuego, Recopilacion)
+from .forms import VideojuegoAdminForm
 
 
 class DistibuidorAdmin(admin.ModelAdmin):
@@ -40,6 +41,8 @@ class ProgramaAdmin(admin.ModelAdmin):
 
 
 class VideojuegoAdmin(admin.ModelAdmin):
+    form = VideojuegoAdminForm
+
     list_display = list_display_links = ['nombre', 'display_descripcion', 'display_sinopsis', 'anio', 'img', 'display_distribuidores',
                     'display_desarrolladores', 'display_modos_juego', 'display_generos',
                     'display_plataformas', 'precio', 'display_edad_recomendada',

@@ -3,12 +3,12 @@ from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import (Distibuidor, Desarrollador, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
+from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
-from .mixins import DistribuidorMixin
+from .mixins import DistribuidorMixin, DesarrolladorMixin
 
 
-# Create your views here.
+# Distribuidor ************************************************************************************************
 class DistribuidorCreateView(DistribuidorMixin, SuccessMessageMixin, CreateView):
     # model = Distibuidor
     # fields = ['nombre', 'descripcion']
@@ -45,41 +45,70 @@ class DistribuidorDeleteView(DeleteView):
     template_name = 'gamesapp/distribuidor_confirm_delete.html'
 
 
-class DesarrolladorCreateView(CreateView):
+# Desarrollador ***********************************************************************************************
+class DesarrolladorCreateView(DesarrolladorMixin, SuccessMessageMixin, CreateView):
+    # model = Desarrollador
+    # fields = ['nombre', 'descripcion']
+
+    success_message = "Desarrollador creado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class DesarrolladorUpdateView(DesarrolladorMixin, SuccessMessageMixin, UpdateView):
+    # model = Desarrollador
+    # fields = ['nombre', 'descripcion']
+
+    success_message = "Desarrollador editado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class DesarrolladorDeleteView(DeleteView):
     model = Desarrollador
-    fields = ['nombre', 'descripcion']
+    success_url = reverse_lazy('desarrollador')
+    template_name = 'gamesapp/desarrollador_confirm_delete.html'
 
 
+# Modo de juego ************************************************************************************************
 class ModoCreateView(CreateView):
-    model = Desarrollador
+    model = Modo
     fields = ['modo_juego']
 
 
+# Plataforma ***************************************************************************************************
 class PlataformaCreateView(CreateView):
     model = Plataforma
     fields = ['nombre', 'retrocompatible']
 
 
+# Edad Recomendada *********************************************************************************************
 class EdadRecomendadaCreateView(CreateView):
     model = EdadRecomendada
     fields = ['numero', 'color', 'descripcion']
 
 
+# Tipo de Contenido *********************************************************************************************
 class TipoContenidoCreateView(CreateView):
     model = TipoContenido
     fields = ['nombre']
 
 
+# Colección *****************************************************************************************************
 class ColeccionCreateView(CreateView):
     model = Coleccion
     fields = ['nombre', 'descripcion', 'url']
 
 
+# Programa ******************************************************************************************************
 class ProgramaCreateView(CreateView):
     model = Programa
     fields = ['nombre', 'descripcion']
 
 
+# Videojuego ****************************************************************************************************
 class VideojuegoCreateView(CreateView):
     model = Videojuego
     fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
@@ -87,6 +116,7 @@ class VideojuegoCreateView(CreateView):
               'coleccion', 'formato', 'programa', 'carpeta']
 
 
+# Recopilación **************************************************************************************************
 class RecopilacionCreateView(CreateView):
     model = Recopilacion
     fields = ['nombre', 'descripcion', 'videojuegos']

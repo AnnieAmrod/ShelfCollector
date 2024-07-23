@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 # Importamos la función include
 from django.urls import include
+from common import views
+
 
 
 urlpatterns = [
