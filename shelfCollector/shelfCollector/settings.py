@@ -44,12 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Aplicación utilizada para administrar y gestionar sitios web, proporciona un modelo de base de datos para almacenar información sobre diferentes sitios web
+    'django.contrib.sites',
 
     # Aplicaciones descargadas
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'ckeditor',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # Aplicaciones propias
     'common',
@@ -58,11 +62,13 @@ INSTALLED_APPS = [
     'funkosapp',
     'booksapp',
 
-
 ]
 
-#Variable de configuración utilizada para especificar el ID del sitio que se está utilizando actualmente. Se utiliza en conjunción con la aplicación 'sites' de Django. Por defecto crea un registro, por ello lo igualamos a 1
+# Variable de configuración utilizada para especificar el ID del sitio que se está utilizando actualmente. Se utiliza en conjunción con la aplicación 'sites' de Django. Por defecto crea un registro, por ello lo igualamos a 1
 SITE_ID = 1
+
+# Variable de configuración utilizada para especificar el nombre del sitio web o aplicación, se utiliza en conjunción con la variable SITE_ID y la aplicación 'sites' de Django para identificar el sitio actualmente en uso y nos sirve para personalizar emails que hacen referencia al nombre del sitio
+#SITE_NAME = 'kat-mascotas.online'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -189,3 +195,7 @@ CKEDITOR_CONFIGS = {
 }
 
 MESSAGE_TAGS = {messages.ERROR: 'danger'}
+
+#-------------------- Para que funcionen las plantillas de Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
