@@ -5,7 +5,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
-from .mixins import DistribuidorMixin, DesarrolladorMixin
+from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
+                     TipoContenidoMixin, ColeccionMixin, ProgramaMixin)
 
 
 # Distribuidor ************************************************************************************************
@@ -57,8 +58,7 @@ class DesarrolladorCreateView(DesarrolladorMixin, SuccessMessageMixin, CreateVie
 
 
 class DesarrolladorUpdateView(DesarrolladorMixin, SuccessMessageMixin, UpdateView):
-    # model = Desarrollador
-    # fields = ['nombre', 'descripcion']
+    model = Desarrollador
 
     success_message = "Desarrollador editado exitosamente"
 
@@ -73,39 +73,159 @@ class DesarrolladorDeleteView(DeleteView):
 
 
 # Modo de juego ************************************************************************************************
-class ModoCreateView(CreateView):
+class ModoCreateView(ModoMixin, SuccessMessageMixin, CreateView):
+    # model = Modo
+    # fields = ['modo_juego']
+
+    success_message = "Modo de juego creado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ModoUpdateView(ModoMixin, SuccessMessageMixin, UpdateView):
     model = Modo
-    fields = ['modo_juego']
+
+    success_message = "Modo de juego editado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ModoDeleteView(DeleteView):
+    model = Modo
+    success_url = reverse_lazy('modo')
+    template_name = 'gamesapp/modo_confirm_delete.html'
 
 
 # Plataforma ***************************************************************************************************
-class PlataformaCreateView(CreateView):
+class PlataformaCreateView(PlataformaMixin, SuccessMessageMixin, CreateView):
+    # model = Plataforma
+    # fields = ['nombre', 'retrocompatible']
+
+    success_message = "Plataforma creada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class PlataformaUpdateView(PlataformaMixin, SuccessMessageMixin, UpdateView):
     model = Plataforma
-    fields = ['nombre', 'retrocompatible']
+
+    success_message = "Plataforma editada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class PlataformaDeleteView(DeleteView):
+    model = Plataforma
+    success_url = reverse_lazy('plataforma')
+    template_name = 'gamesapp/plataforma_confirm_delete.html'
 
 
 # Edad Recomendada *********************************************************************************************
-class EdadRecomendadaCreateView(CreateView):
+class EdadRecomendadaCreateView(EdadRecomendadaMixin, SuccessMessageMixin, CreateView):
+    # model = EdadRecomendada
+    # fields = ['numero', 'color', 'descripcion']
+
+    success_message = "Edad Recomendada creada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class EdadRecomendadaUpdateView(EdadRecomendadaMixin, SuccessMessageMixin, UpdateView):
     model = EdadRecomendada
-    fields = ['numero', 'color', 'descripcion']
+
+    success_message = "Edad Recomendada editada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class EdadRecomendadaDeleteView(DeleteView):
+    model = EdadRecomendada
+    success_url = reverse_lazy('edad_recomendada')
+    template_name = 'gamesapp/edad_recomendada_confirm_delete.html'
 
 
 # Tipo de Contenido *********************************************************************************************
-class TipoContenidoCreateView(CreateView):
+class TipoContenidoCreateView(TipoContenidoMixin, SuccessMessageMixin, CreateView):
+    # model = TipoContenido
+    # fields = ['nombre']
+
+    success_message = "Tipo de contenido creado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class TipoContenidoUpdateView(TipoContenidoMixin, SuccessMessageMixin, UpdateView):
     model = TipoContenido
-    fields = ['nombre']
+
+    success_message = "Tipo de contenido editado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class TipoContenidoDeleteView(DeleteView):
+    model = TipoContenido
+    success_url = reverse_lazy('tipo_contenido')
+    template_name = 'gamesapp/tipo_contenido_confirm_delete.html'
 
 
 # Colección *****************************************************************************************************
-class ColeccionCreateView(CreateView):
+class ColeccionCreateView(ColeccionMixin, SuccessMessageMixin, CreateView):
+    # model = Coleccion
+    # fields = ['nombre', 'descripcion', 'url']
+
+    success_message = "Colección creada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ColeccionUpdateView(ColeccionMixin, SuccessMessageMixin, UpdateView):
     model = Coleccion
-    fields = ['nombre', 'descripcion', 'url']
+
+    success_message = "Colección editada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ColeccionDeleteView(DeleteView):
+    model = Coleccion
+    success_url = reverse_lazy('coleccion')
+    template_name = 'gamesapp/coleccion_confirm_delete.html'
 
 
 # Programa ******************************************************************************************************
-class ProgramaCreateView(CreateView):
+class ProgramaCreateView(ProgramaMixin, SuccessMessageMixin, CreateView):
+    # model = Programa
+    # fields = ['nombre', 'descripcion']
+
+    success_message = "Programa creado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ProgramaUpdateView(ProgramaMixin, SuccessMessageMixin, UpdateView):
     model = Programa
-    fields = ['nombre', 'descripcion']
+
+    success_message = "Programa editado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class ProgramaDeleteView(DeleteView):
+    model = Programa
+    success_url = reverse_lazy('coleccion')
+    template_name = 'gamesapp/programa_confirm_delete.html'
 
 
 # Videojuego ****************************************************************************************************

@@ -4,11 +4,11 @@
 {% block content %}
 <div class="container py-5">
     <!-- Para crear elementos -->
-    <h2>{{object|yesno:'Actualizar desarrollador,Creación de un nuevo desarrollador'}}</h2>
+    <h2>{{object|yesno:'Actualizar colección,Creación de una nueva colección'}}</h2>
     <form method="post" enctype="multipart/form-data" novalidate>{% crispy form %}
         <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}">
         {% if object %}
-            <a class="btn" href="{% url 'desarrollador_delete' object.id %}"> Eliminar </a>
+            <a class="btn" href="{% url 'coleccion_delete' object.id %}"> Eliminar </a>
         {% endif %}
     </form>
 </div>

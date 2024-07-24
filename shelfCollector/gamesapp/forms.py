@@ -1,5 +1,5 @@
 from django import forms
-from .models import Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, Coleccion, Programa, Videojuego
+from .models import Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion, Programa, Videojuego
 from common.models import Genero, Carpeta
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field, Row
@@ -47,7 +47,7 @@ class DesarrolladorForm(forms.ModelForm):
 class ModoForm(forms.ModelForm):
     class Meta:
         model = Modo
-        fields = '__all__'
+        fields = ['modo_juego']
 
 
 class GeneroForm(forms.ModelForm):
@@ -59,7 +59,7 @@ class GeneroForm(forms.ModelForm):
 class PlataformaForm(forms.ModelForm):
     class Meta:
         model = Plataforma
-        fields = '__all__'
+        fields = ['nombre', 'retrocompatible']
 
 
 class EdadRecomendadaForm(forms.ModelForm):
@@ -68,16 +68,22 @@ class EdadRecomendadaForm(forms.ModelForm):
         fields = '__all__'
 
 
+class TipoContenidoForm(forms.ModelForm):
+    class Meta:
+        model = TipoContenido
+        fields = ['nombre']
+
+
 class ColeccionForm(forms.ModelForm):
     class Meta:
         model = Coleccion
-        fields = '__all__'
+        fields = ['nombre', 'descripcion', 'url']
 
 
 class ProgramaForm(forms.ModelForm):
     class Meta:
         model = Programa
-        fields = '__all__'
+        fields = ['nombre', 'descripcion']
 
 
 class CarpetaForm(forms.ModelForm):
