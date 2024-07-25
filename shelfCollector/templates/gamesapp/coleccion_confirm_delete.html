@@ -1,11 +1,12 @@
 {% extends 'common/base_gamesapp.html' %}
 {% block content %}
 <div class="container">
-<h2>Eliminar una Colección</h2>
-<form method="post">{% csrf_token %}
-<p>¿Está seguro que quiere eliminar esta colección "{{ object }}"?</p>
-{{ form }}
-<input type="submit" value="Confirmar" class="btn">
-</form>
+    <h2>Eliminar una Colección</h2>
+    <form method="post">{% csrf_token %}
+        <p>¿Está seguro que quiere eliminar esta colección "{{ object }}"?</p>
+        {{ form }}
+        <input type="submit" value="Confirmar" class="btn">
+        <a href="{% url 'coleccion_update' object.pk %}" class="btn">Cancelar</a>
+    </form>
 </div>
 {% endblock %}

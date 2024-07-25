@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
 from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
-                     TipoContenidoMixin, ColeccionMixin, ProgramaMixin)
+                     TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin)
 
 
 # Distribuidor ************************************************************************************************
@@ -224,16 +224,36 @@ class ProgramaUpdateView(ProgramaMixin, SuccessMessageMixin, UpdateView):
 
 class ProgramaDeleteView(DeleteView):
     model = Programa
-    success_url = reverse_lazy('coleccion')
+    success_url = reverse_lazy('programa')
     template_name = 'gamesapp/programa_confirm_delete.html'
 
 
 # Videojuego ****************************************************************************************************
-class VideojuegoCreateView(CreateView):
+class VideojuegoCreateView(VideojuegoMixin, SuccessMessageMixin, CreateView):
+    # model = Videojuego
+    # fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
+    #           'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
+    #           'coleccion', 'formato', 'programa', 'carpeta']
+
+    success_message = "Videojuego creado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class VideojuegoUpdateView(VideojuegoMixin, SuccessMessageMixin, UpdateView):
     model = Videojuego
-    fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
-              'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
-              'coleccion', 'formato', 'programa', 'carpeta']
+
+    success_message = "Videojuego editado exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class VideojuegoDeleteView(DeleteView):
+    model = Videojuego
+    success_url = reverse_lazy('videojuego')
+    template_name = 'gamesapp/videojuego_confirm_delete.html'
 
 
 # Recopilación **************************************************************************************************

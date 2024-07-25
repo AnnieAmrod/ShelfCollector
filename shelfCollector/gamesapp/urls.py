@@ -34,6 +34,10 @@ urlpatterns = [
     path('programa_update/<int:pk>/', views.ProgramaUpdateView.as_view(), name='programa_update'),
     path('programa_delete/<int:pk>/', views.ProgramaDeleteView.as_view(), name='programa_delete'),
 
+    path('videojuego_create/', views.VideojuegoCreateView.as_view(), name='videojuego_create'),
+    path('videojuego_update/<int:pk>/', views.VideojuegoUpdateView.as_view(), name='videojuego_update'),
+    path('videojuego_delete/<int:pk>/', views.VideojuegoDeleteView.as_view(), name='videojuego_delete'),
+
 ]
 
 # if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

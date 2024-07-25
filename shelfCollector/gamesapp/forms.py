@@ -92,6 +92,14 @@ class CarpetaForm(forms.ModelForm):
         fields = '__all__'
 
 
+class VideojuegoForm(forms.ModelForm):
+    class Meta:
+        model = Videojuego
+        fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
+                'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
+                'coleccion', 'formato', 'programa', 'carpeta']
+
+
 class VideojuegoAdminForm(forms.ModelForm):
     class Meta:
         model = Videojuego

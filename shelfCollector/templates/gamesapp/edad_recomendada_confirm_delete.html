@@ -1,11 +1,12 @@
 {% extends 'common/base_gamesapp.html' %}
 {% block content %}
 <div class="container">
-<h2>Eliminar una Plataforma</h2>
-<form method="post">{% csrf_token %}
-<p>¿Está seguro que quiere eliminar esta edad recomendada "{{ object }}"?</p>
-{{ form }}
-<input type="submit" value="Confirmar" class="btn">
-</form>
+    <h2>Eliminar una Plataforma</h2>
+    <form method="post">{% csrf_token %}
+        <p>¿Está seguro que quiere eliminar esta edad recomendada "{{ object }}"?</p>
+        {{ form }}
+        <input type="submit" value="Confirmar" class="btn">
+        <a href="{% url 'edad_recomendada_update' object.pk %}" class="btn">Cancelar</a>
+    </form>
 </div>
 {% endblock %}

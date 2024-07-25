@@ -1,11 +1,12 @@
 {% extends 'common/base_gamesapp.html' %}
 {% block content %}
 <div class="container">
-<h2>Eliminar un Tipo de Contenido</h2>
-<form method="post">{% csrf_token %}
-<p>¿Está seguro que quiere eliminar este tipo de contenido "{{ object }}"?</p>
-{{ form }}
-<input type="submit" value="Confirmar" class="btn">
-</form>
+    <h2>Eliminar un Tipo de Contenido</h2>
+    <form method="post">{% csrf_token %}
+        <p>¿Está seguro que quiere eliminar este tipo de contenido "{{ object }}"?</p>
+        {{ form }}
+        <input type="submit" value="Confirmar" class="btn">
+        <a href="{% url 'tipo_update' object.pk %}" class="btn">Cancelar</a>
+    </form>
 </div>
 {% endblock %}
