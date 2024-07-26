@@ -441,7 +441,7 @@ class Recopilacion(models.Model):
         sinopsis_list = self.videojuegos.values_list('sinopsis', flat=True)
         combined_sinopsis = " ".join(sinopsis_list)
         if len(combined_sinopsis) > 10000:
-            combined_sinopsis = combined_sinopsis[:10000]  # Truncate to 4000 characters if necessary
+            combined_sinopsis = combined_sinopsis[:10000]  # Truncate to 10000 characters if necessary
         return combined_sinopsis
 
     def __str__(self):

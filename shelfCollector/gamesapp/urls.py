@@ -38,6 +38,9 @@ urlpatterns = [
     path('videojuego_update/<int:pk>/', views.VideojuegoUpdateView.as_view(), name='videojuego_update'),
     path('videojuego_delete/<int:pk>/', views.VideojuegoDeleteView.as_view(), name='videojuego_delete'),
 
+    path('recopilacion_create/', views.RecopilacionCreateView.as_view(), name='recopilacion_create'),
+    path('recopilacion_update/<int:pk>/', views.RecopilacionUpdateView.as_view(), name='recopilacion_update'),
+    path('recopilacion_delete/<int:pk>/', views.RecopilacionDeleteView.as_view(), name='recopilacion_delete'),
 ]
 
 # if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

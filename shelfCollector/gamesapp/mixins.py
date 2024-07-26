@@ -2,7 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Distibuidor
 from django.urls import reverse_lazy
 from .forms import (DistribuidorForm, DesarrolladorForm, ModoForm, PlataformaForm, EdadRecomendadaForm,
-                    TipoContenidoForm, ColeccionForm, ProgramaForm, VideojuegoForm)
+                    TipoContenidoForm, ColeccionForm, ProgramaForm, VideojuegoForm, RecopilacionForm)
 
 
 class DistribuidorMixin(SuccessMessageMixin):
@@ -88,3 +88,12 @@ class VideojuegoMixin(SuccessMessageMixin):
     def get_success_url(self):
         object = self.object
         return reverse_lazy('videojuego_update', kwargs={'pk': object.id})
+
+
+class RecopilacionMixin(SuccessMessageMixin):
+    form_class = RecopilacionForm
+    template_name = 'gamesapp/recopilacion_form.html'
+
+    def get_success_url(self):
+        object = self.object
+        return reverse_lazy('recopilacion_update', kwargs={'pk': object.id})

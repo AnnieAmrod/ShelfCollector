@@ -23,7 +23,7 @@
           <a class="nav-link{% if request.path == '/funko/' %} active{% endif %}" href="{% url 'funko' %}">Funkos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link{% if request.path == '/conocenos' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto KAT</a>
+          <a class="nav-link{% if request.path == '/conocenos' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto Shelf Collector</a>
         </li>
       </ul>
     </div>
@@ -49,11 +49,11 @@
 
     <div class="container-fluid">
       <a class="navbar-brand d-lg-none col-md-3 col-lg-3 px-sm-3 px-0 ml-5 id_logo" href="{% url 'panel' %}">
-        <img src="{% static 'joystick_game.webp' %}" alt="Logo KAT" class="d-inline-block align-text-center" id="id_logo">
+        <img src="{% static 'joystick_game.webp' %}" alt="Logo Shelf Collector" class="d-inline-block align-text-center" id="id_logo">
         Gestiona tus colecciones
       </a>
       <a class="navbar-brand d-none d-lg-flex d-xl-none col-md-3 col-lg-2 px-sm-3 px-0 ml-5 id_logo" href="{% url 'panel' %}">
-        <img src="{% static 'joystick_game.webp' %}" alt="Logo KAT" class="d-inline-block align-text-center" id="id_logo">
+        <img src="{% static 'joystick_game.webp' %}" alt="Logo Shelf Collector" class="d-inline-block align-text-center" id="id_logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@
             <a class="nav-link{% if request.path == '/funko/' %} active{% endif %}" href="{% url 'funko' %}">Funkos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link{% if request.path == '/conocenos/' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto KAT</a>
+            <a class="nav-link{% if request.path == '/conocenos/' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto Shelf Collector</a>
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">

@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
 from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
-                     TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin)
+                     TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin, RecopilacionMixin)
 
 
 # Distribuidor ************************************************************************************************
@@ -257,6 +257,28 @@ class VideojuegoDeleteView(DeleteView):
 
 
 # Recopilación **************************************************************************************************
-class RecopilacionCreateView(CreateView):
+class RecopilacionCreateView(RecopilacionMixin, SuccessMessageMixin, CreateView):
+    # model = Recopilacion
+    # fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
+    #           'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
+    #           'coleccion', 'formato', 'programa', 'carpeta', 'videojuegos']
+
+    success_message = "Recopilación creada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class RecopilacionUpdateView(RecopilacionMixin, SuccessMessageMixin, UpdateView):
     model = Recopilacion
-    fields = ['nombre', 'descripcion', 'videojuegos']
+
+    success_message = "Recopilación editada exitosamente"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message + ' - ' + str(self.object)
+
+
+class RecopilacionDeleteView(DeleteView):
+    model = Recopilacion
+    success_url = reverse_lazy('recopilacion')
+    template_name = 'gamesapp/recopilacion_confirm_delete.html'

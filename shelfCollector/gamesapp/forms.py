@@ -1,5 +1,5 @@
 from django import forms
-from .models import Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion, Programa, Videojuego
+from .models import Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion, Programa, Videojuego, Recopilacion
 from common.models import Genero, Carpeta
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field, Row
@@ -98,6 +98,14 @@ class VideojuegoForm(forms.ModelForm):
         fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
                 'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
                 'coleccion', 'formato', 'programa', 'carpeta']
+
+
+class RecopilacionForm(forms.ModelForm):
+    class Meta:
+        model = Recopilacion
+        fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
+                'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
+                'coleccion', 'formato', 'programa', 'carpeta', 'videojuegos']
 
 
 class VideojuegoAdminForm(forms.ModelForm):
