@@ -1,0 +1,98 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container-fluid fondo">
+    <!-- Carrousel -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+            <div class="carousel-item">
+                <img src="#" class="d-block w-100" alt="#">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="row mt-5 card-overlay justify-content-center d-none d-sm-flex">
+        <div class="top-50 w-25">
+            <div class="card translate-middle-y">
+                <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_videojuego"></i>
+                <div class="card-body text-center">
+                    <h5 class="card-title card-inicio">VIDEOJUEGO</h5>
+                    <a href="{% url 'videojuego_create' %}" class="btn btn-inicio card-inicio">Publicar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class=" top-50 w-25">
+            <div class="card translate-middle-y">
+                <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_funko"></i>
+                <div class="card-body text-center">
+                    <h5 class="card-title card-inicio">FUNKO</h5>
+                    <a href="{% url 'funko_create' %}" class="btn btn-inicio card-inicio">Publicar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-50 w-25">
+            <div class="card translate-middle-y">
+                <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_libro"></i>
+                <div class="card-body text-center">
+                    <h5 class="card-title card-inicio">LIBRO</h5>
+                    <a href="{% url 'libro_create' %}" class="btn btn-inicio card-inicio">Publicar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Cards móvil -->
+        <div class="row mt-5 card-overlay justify-content-center d-flex d-sm-none">
+            <div class="top-50 w-75 py-2">
+                <div class="card translate-middle-y">
+                    <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_videojuego"></i>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">VIDEOJUEGO</h5>
+                        <a href="{% url 'videojuego_create' %}" class="btn btn-inicio">Publicar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" top-50 w-75 py-2">
+                <div class="card translate-middle-y">
+                    <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_funko"></i>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">FUNKO</h5>
+                        <a href="{% url 'funko_create' %}" class="btn btn-inicio">Publicar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-50 w-75 py-2">
+                <div class="card translate-middle-y">
+                    <i class="fa-sharp fa-regular fa-circle fa-4x mx-auto pt-3" id="id_libro"></i>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">LIBRO</h5>
+                        <a href="{% url 'libro_create' %}" class="btn btn-inicio">Publicar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

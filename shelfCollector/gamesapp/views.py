@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView
 
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion)
@@ -254,6 +255,100 @@ class VideojuegoDeleteView(DeleteView):
     model = Videojuego
     success_url = reverse_lazy('videojuego')
     template_name = 'gamesapp/videojuego_confirm_delete.html'
+
+
+class VideojuegoListView(TemplateView):
+    template_name = 'gamesapp/listado_videojuegos.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VideojuegoListView, self).get_context_data(**kwargs)
+
+        # Obtener los valores de los filtros enviados por el usuario
+        nombre = self.request.GET.get('nombre')
+        anio = self.request.GET.get('anio')
+
+        # Sacar más de un registro al filtrar
+        distribuidor_id = kwargs.get('distribuidor_id')
+        desarrollador_id = kwargs.get('desarrollador_id')
+        modo_juego_id = kwargs.get('modo_juego_id')
+        genero_id = kwargs.get('genero_id')
+        plataforma_id = kwargs.get('plataforma_id')
+        coleccion_id = kwargs.get('coleccion_id')
+        carpeta_id = kwargs.get('carpeta_id')
+
+
+        # Obtener todos los videojuegos
+        videojuegos = Videojuego.objects.all()
+
+        # Filtrar los objetos de Videojuego utilizando los filtros recibidos
+
+        if nombre:
+            # Filtrar por nombre escrito
+            videojuegos = videojuegos.filter(nombre__icontains=nombre)
+
+        if anio:
+            # Filtrar por año escrito
+            videojuegos = videojuegos.filter(anio__icontains=anio)
+
+        if distribuidor_id:
+            # Filtrar por distribuidor seleccionado
+            videojuegos = videojuegos.filter(distribuidor_id=distribuidor_id)
+
+        if desarrollador_id:
+            # Filtrar por desarrollador seleccionado
+            videojuegos = videojuegos.filter(desarrollador_id=desarrollador_id)
+
+        if modo_juego_id:
+            # Filtrar por modo de juego seleccionado
+            videojuegos = videojuegos.filter(modo_juego_id=modo_juego_id)
+
+        if genero_id:
+            # Filtrar por genero seleccionado
+            videojuegos = videojuegos.filter(genero_id=genero_id)
+
+        if plataforma_id:
+            # Filtrar por plataforma seleccionada
+            videojuegos = videojuegos.filter(plataforma_id=plataforma_id)
+
+        if coleccion_id:
+            # Filtrar por colección seleccionada
+            videojuegos = videojuegos.filter(coleccion_id=coleccion_id)
+
+        if carpeta_id:
+            # Filtrar por carpeta seleccionada
+            videojuegos = videojuegos.filter(carpeta_id=carpeta_id)
+
+        # Obtener todos los videojuegos filtrados
+        context['videojuego'] = videojuegos
+
+        return context
+
+
+# -------------------------------- Recuperar videojuego al clickar en un videojuego de Panel
+def videojuego_detail_view(request,pk):
+    videojuego = Videojuego.objects.get(pk=pk)
+    context = {'videojuego': videojuego}
+    return render(request,'gamesapp/detalle_videojuego.html',context)
+
+
+# -------------------------------- Incluir código para que no explote la aplicación cuando se introduzca un id no válido.
+    # -------------------------------- Que devuelva la página 404 o el objeto
+def videojuegoView(request, pk):
+    videojuego = get_object_or_404(Videojuego, pk=pk)
+    context = {'videojuego': videojuego}
+    return render(request, 'gamesapp/listado_videojuegos.html', context)
+
+
+class VideojuegoDetailView(TemplateView):
+    template_name = "gamesapp/detalle_videojuego.html"
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        lost_id = kwargs.get('id')
+        context['videojuego'] = Videojuego.objects.get(id=lost_id)
+        return context
+
+
+
 
 
 # Recopilación **************************************************************************************************

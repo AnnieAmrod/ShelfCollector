@@ -25,9 +25,11 @@ from common import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Definimos la URL para todas las urls de allauth sin tener que escribirlas una por una
-    #? path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     path('', include('common.urls')),
     path('', include('gamesapp.urls')),
+    path('', include('funkosapp.urls')),
+    path('', include('booksapp.urls')),
 ]
 
 # if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -41,6 +41,16 @@ urlpatterns = [
     path('recopilacion_create/', views.RecopilacionCreateView.as_view(), name='recopilacion_create'),
     path('recopilacion_update/<int:pk>/', views.RecopilacionUpdateView.as_view(), name='recopilacion_update'),
     path('recopilacion_delete/<int:pk>/', views.RecopilacionDeleteView.as_view(), name='recopilacion_delete'),
+
+    #path('videojuego/', views.VideojuegoListView.as_view(), 'videojuego'),
+    #path('videojuego/<int:distribuidor_id>/', views.VideojuegoListView.as_view(), 'videojuego_distribuidor'),
+    #path('videojuego/<int:desarrollador_id>/', views.VideojuegoListView.as_view(), 'videojuego_desarrollador'),
+    #path('videojuego/<int:modo_juego_id>/', views.VideojuegoListView.as_view(), 'videojuego_modo_juego'),
+    #path('videojuego/<int:genero_id>/', views.VideojuegoListView.as_view(), 'videojuego_genero'),
+    #path('videojuego/<int:plataforma_id>/', views.VideojuegoListView.as_view(), 'videojuego_plataforma'),
+    #path('videojuego/<int:coleccion_id>/', views.VideojuegoListView.as_view(), 'videojuego_coleccion'),
+    #path('videojuego/<int:carpeta_id>/', views.VideojuegoListView.as_view(), 'videojuego_carpeta'),
+
 ]
 
 # if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

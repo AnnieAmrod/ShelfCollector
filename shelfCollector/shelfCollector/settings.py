@@ -30,7 +30,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG').lower() == 'true'
+# DEBUG = os.environ.get('DEBUG').lower() == 'true'
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
@@ -68,7 +69,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 # Variable de configuración utilizada para especificar el nombre del sitio web o aplicación, se utiliza en conjunción con la variable SITE_ID y la aplicación 'sites' de Django para identificar el sitio actualmente en uso y nos sirve para personalizar emails que hacen referencia al nombre del sitio
-#SITE_NAME = 'kat-mascotas.online'
+SITE_NAME = 'shelfcollector.pythonanywhere.com'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,6 +135,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Configurar autenticación utilizando el modelo predeterminado de Django
 AUTH_USER_MODEL = 'usuario.Usuario'
 
+#Creamos las variables de configuración que indican la URL o vista a la que se redirigirá al usuario tras realizar login/logout
+LOGIN_REDIRECT_URL = '/panel/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+LOGIN_URL = '/login/'
 
 AUTHENTICATION_BACKENDS = [
     # Necesaria para realizar el login usando username en el administrador de Django, independiente de django allauth

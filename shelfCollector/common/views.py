@@ -4,9 +4,14 @@ from django.views.generic.edit import CreateView
 from .models import Genero, Carpeta
 
 
+
 # Create your views here.
 class HomeView(TemplateView):
     template_name = 'common/home.html'
+
+
+class PanelView(TemplateView):
+    template_name = 'common/panel_inicio.html'
 
 
 # CRUD
