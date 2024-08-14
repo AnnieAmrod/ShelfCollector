@@ -199,9 +199,10 @@ class Videojuego(models.Model):
     descripcion = models.CharField(
                             max_length=4000,
                             verbose_name='Descripción',
+                            help_text='La encontrarás tras la portada',
                             null=True,
                             blank=True)
-    sinopsis = RichTextField(max_length=4000, verbose_name='Sinopsis', null=True, blank=True)
+    sinopsis = RichTextField(max_length=4000, verbose_name='Sinopsis', help_text='Sinopsis (con spoilers) del juego', null=True, blank=True)
     # sinopsis = models.TextField(
     #                        verbose_name='Sinopsis',
     #                        max_length=4000,

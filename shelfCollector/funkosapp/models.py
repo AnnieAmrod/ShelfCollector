@@ -70,11 +70,32 @@ class Tipo(models.Model):
 class Funko(models.Model):
     SI = 'j'
     NO = 'n'
-    RECOPILACION = 'r'
+    PACK = 'p'
     TENEMOS_CHOICES = {
-        (SI, 'Juego'),
+        (SI, 'Si tenemos'),
         (NO, 'No tenemos'),
-        (RECOPILACION, 'Recopilación'),
+        (PACK, 'Pack'),
+    }
+
+    TELEVISION = 't'
+    DISNEY = 'd'
+    CINE = 'c'
+    ROCK = 'r'
+    MARVEL = 'm'
+    GAMES = 'g'
+    STAR_WARS = 's'
+    ANIME = 'a'
+    OTHER = 'o'
+    GENERO_CHOICES = {
+        (TELEVISION, 'Televisión'),
+        (DISNEY, 'Disney'),
+        (CINE, 'Cine'),
+        (ROCK, 'Rock'),
+        (MARVEL, 'Marvel'),
+        (GAMES, 'Games'),
+        (STAR_WARS, 'Star Wars'),
+        (ANIME, 'Anime'),
+        (OTHER, 'Other'),
     }
 
     n_coleccion = models.CharField(
@@ -112,11 +133,13 @@ class Funko(models.Model):
                             verbose_name=' Tipo',
                             blank=True,
                             related_name='funko_tipos')
-    genero = models.ManyToManyField(
-                            Genero,
+    genero = models.CharField(
+                            max_length=1,
                             verbose_name=' Género',
+                            choices=GENERO_CHOICES,
+                            default=OTHER,
                             blank=False,
-                            related_name='funko_generos')
+                            null=True)
     num_serie = models.CharField(
                             max_length=40,
                             verbose_name='Número de Serie',

@@ -1,0 +1,17 @@
+{% extends 'common/base_gamesapp.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Para crear elementos -->
+    <h2>{{object|yesno:'Actualizar libro,Creación de un nuevo libro'}}</h2>
+    <form method="post" enctype="multipart/form-data" novalidate>{% crispy form %}
+        <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}">
+        {% if object %}
+            <a class="btn" href="#"> Eliminar </a>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
+
+<!-- {% url 'videojuego_delete' object.id %} -->

@@ -8,10 +8,11 @@ from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomenda
                      Programa, Videojuego, Recopilacion)
 from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
                      TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin, RecopilacionMixin)
+from common.mixins import AreaRestringidaMixin
 
 
 # Distribuidor ************************************************************************************************
-class DistribuidorCreateView(DistribuidorMixin, SuccessMessageMixin, CreateView):
+class DistribuidorCreateView(AreaRestringidaMixin, DistribuidorMixin, SuccessMessageMixin, CreateView):
     # model = Distibuidor
     # fields = ['nombre', 'descripcion']
     # success_url = reverse_lazy('distribuidor_list')
@@ -26,7 +27,7 @@ class DistribuidorCreateView(DistribuidorMixin, SuccessMessageMixin, CreateView)
         return self.success_message + ' - ' + str(self.object)
 
 
-class DistribuidorUpdateView(DistribuidorMixin, SuccessMessageMixin, UpdateView):
+class DistribuidorUpdateView(AreaRestringidaMixin, DistribuidorMixin, SuccessMessageMixin, UpdateView):
     model = Distibuidor
     # fields = ['nombre', 'descripcion']
     # success_url = reverse_lazy('distribuidor_list')
@@ -41,14 +42,14 @@ class DistribuidorUpdateView(DistribuidorMixin, SuccessMessageMixin, UpdateView)
         return self.success_message + ' - ' + str(self.object)
 
 
-class DistribuidorDeleteView(DeleteView):
+class DistribuidorDeleteView(AreaRestringidaMixin, DeleteView):
     model = Distibuidor
     success_url = reverse_lazy('distribuidor')
     template_name = 'gamesapp/distribuidor_confirm_delete.html'
 
 
 # Desarrollador ***********************************************************************************************
-class DesarrolladorCreateView(DesarrolladorMixin, SuccessMessageMixin, CreateView):
+class DesarrolladorCreateView(AreaRestringidaMixin, DesarrolladorMixin, SuccessMessageMixin, CreateView):
     # model = Desarrollador
     # fields = ['nombre', 'descripcion']
 
@@ -58,7 +59,7 @@ class DesarrolladorCreateView(DesarrolladorMixin, SuccessMessageMixin, CreateVie
         return self.success_message + ' - ' + str(self.object)
 
 
-class DesarrolladorUpdateView(DesarrolladorMixin, SuccessMessageMixin, UpdateView):
+class DesarrolladorUpdateView(AreaRestringidaMixin, DesarrolladorMixin, SuccessMessageMixin, UpdateView):
     model = Desarrollador
 
     success_message = "Desarrollador editado exitosamente"
@@ -67,14 +68,14 @@ class DesarrolladorUpdateView(DesarrolladorMixin, SuccessMessageMixin, UpdateVie
         return self.success_message + ' - ' + str(self.object)
 
 
-class DesarrolladorDeleteView(DeleteView):
+class DesarrolladorDeleteView(AreaRestringidaMixin, DeleteView):
     model = Desarrollador
     success_url = reverse_lazy('desarrollador')
     template_name = 'gamesapp/desarrollador_confirm_delete.html'
 
 
 # Modo de juego ************************************************************************************************
-class ModoCreateView(ModoMixin, SuccessMessageMixin, CreateView):
+class ModoCreateView(AreaRestringidaMixin, ModoMixin, SuccessMessageMixin, CreateView):
     # model = Modo
     # fields = ['modo_juego']
 
@@ -84,7 +85,7 @@ class ModoCreateView(ModoMixin, SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ModoUpdateView(ModoMixin, SuccessMessageMixin, UpdateView):
+class ModoUpdateView(AreaRestringidaMixin, ModoMixin, SuccessMessageMixin, UpdateView):
     model = Modo
 
     success_message = "Modo de juego editado exitosamente"
@@ -93,14 +94,14 @@ class ModoUpdateView(ModoMixin, SuccessMessageMixin, UpdateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ModoDeleteView(DeleteView):
+class ModoDeleteView(AreaRestringidaMixin, DeleteView):
     model = Modo
     success_url = reverse_lazy('modo')
     template_name = 'gamesapp/modo_confirm_delete.html'
 
 
 # Plataforma ***************************************************************************************************
-class PlataformaCreateView(PlataformaMixin, SuccessMessageMixin, CreateView):
+class PlataformaCreateView(AreaRestringidaMixin, PlataformaMixin, SuccessMessageMixin, CreateView):
     # model = Plataforma
     # fields = ['nombre', 'retrocompatible']
 
@@ -110,7 +111,7 @@ class PlataformaCreateView(PlataformaMixin, SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class PlataformaUpdateView(PlataformaMixin, SuccessMessageMixin, UpdateView):
+class PlataformaUpdateView(AreaRestringidaMixin, PlataformaMixin, SuccessMessageMixin, UpdateView):
     model = Plataforma
 
     success_message = "Plataforma editada exitosamente"
@@ -119,14 +120,14 @@ class PlataformaUpdateView(PlataformaMixin, SuccessMessageMixin, UpdateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class PlataformaDeleteView(DeleteView):
+class PlataformaDeleteView(AreaRestringidaMixin, DeleteView):
     model = Plataforma
     success_url = reverse_lazy('plataforma')
     template_name = 'gamesapp/plataforma_confirm_delete.html'
 
 
 # Edad Recomendada *********************************************************************************************
-class EdadRecomendadaCreateView(EdadRecomendadaMixin, SuccessMessageMixin, CreateView):
+class EdadRecomendadaCreateView(AreaRestringidaMixin, EdadRecomendadaMixin, SuccessMessageMixin, CreateView):
     # model = EdadRecomendada
     # fields = ['numero', 'color', 'descripcion']
 
@@ -136,7 +137,7 @@ class EdadRecomendadaCreateView(EdadRecomendadaMixin, SuccessMessageMixin, Creat
         return self.success_message + ' - ' + str(self.object)
 
 
-class EdadRecomendadaUpdateView(EdadRecomendadaMixin, SuccessMessageMixin, UpdateView):
+class EdadRecomendadaUpdateView(AreaRestringidaMixin, EdadRecomendadaMixin, SuccessMessageMixin, UpdateView):
     model = EdadRecomendada
 
     success_message = "Edad Recomendada editada exitosamente"
@@ -145,14 +146,14 @@ class EdadRecomendadaUpdateView(EdadRecomendadaMixin, SuccessMessageMixin, Updat
         return self.success_message + ' - ' + str(self.object)
 
 
-class EdadRecomendadaDeleteView(DeleteView):
+class EdadRecomendadaDeleteView(AreaRestringidaMixin, DeleteView):
     model = EdadRecomendada
     success_url = reverse_lazy('edad_recomendada')
     template_name = 'gamesapp/edad_recomendada_confirm_delete.html'
 
 
 # Tipo de Contenido *********************************************************************************************
-class TipoContenidoCreateView(TipoContenidoMixin, SuccessMessageMixin, CreateView):
+class TipoContenidoCreateView(AreaRestringidaMixin, TipoContenidoMixin, SuccessMessageMixin, CreateView):
     # model = TipoContenido
     # fields = ['nombre']
 
@@ -162,7 +163,7 @@ class TipoContenidoCreateView(TipoContenidoMixin, SuccessMessageMixin, CreateVie
         return self.success_message + ' - ' + str(self.object)
 
 
-class TipoContenidoUpdateView(TipoContenidoMixin, SuccessMessageMixin, UpdateView):
+class TipoContenidoUpdateView(AreaRestringidaMixin, TipoContenidoMixin, SuccessMessageMixin, UpdateView):
     model = TipoContenido
 
     success_message = "Tipo de contenido editado exitosamente"
@@ -171,14 +172,14 @@ class TipoContenidoUpdateView(TipoContenidoMixin, SuccessMessageMixin, UpdateVie
         return self.success_message + ' - ' + str(self.object)
 
 
-class TipoContenidoDeleteView(DeleteView):
+class TipoContenidoDeleteView(AreaRestringidaMixin, DeleteView):
     model = TipoContenido
     success_url = reverse_lazy('tipo_contenido')
     template_name = 'gamesapp/tipo_contenido_confirm_delete.html'
 
 
 # Colección *****************************************************************************************************
-class ColeccionCreateView(ColeccionMixin, SuccessMessageMixin, CreateView):
+class ColeccionCreateView(AreaRestringidaMixin, ColeccionMixin, SuccessMessageMixin, CreateView):
     # model = Coleccion
     # fields = ['nombre', 'descripcion', 'url']
 
@@ -188,7 +189,7 @@ class ColeccionCreateView(ColeccionMixin, SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ColeccionUpdateView(ColeccionMixin, SuccessMessageMixin, UpdateView):
+class ColeccionUpdateView(AreaRestringidaMixin, ColeccionMixin, SuccessMessageMixin, UpdateView):
     model = Coleccion
 
     success_message = "Colección editada exitosamente"
@@ -197,14 +198,14 @@ class ColeccionUpdateView(ColeccionMixin, SuccessMessageMixin, UpdateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ColeccionDeleteView(DeleteView):
+class ColeccionDeleteView(AreaRestringidaMixin, DeleteView):
     model = Coleccion
     success_url = reverse_lazy('coleccion')
     template_name = 'gamesapp/coleccion_confirm_delete.html'
 
 
 # Programa ******************************************************************************************************
-class ProgramaCreateView(ProgramaMixin, SuccessMessageMixin, CreateView):
+class ProgramaCreateView(AreaRestringidaMixin, ProgramaMixin, SuccessMessageMixin, CreateView):
     # model = Programa
     # fields = ['nombre', 'descripcion']
 
@@ -214,7 +215,7 @@ class ProgramaCreateView(ProgramaMixin, SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ProgramaUpdateView(ProgramaMixin, SuccessMessageMixin, UpdateView):
+class ProgramaUpdateView(AreaRestringidaMixin, ProgramaMixin, SuccessMessageMixin, UpdateView):
     model = Programa
 
     success_message = "Programa editado exitosamente"
@@ -223,14 +224,14 @@ class ProgramaUpdateView(ProgramaMixin, SuccessMessageMixin, UpdateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class ProgramaDeleteView(DeleteView):
+class ProgramaDeleteView(AreaRestringidaMixin, DeleteView):
     model = Programa
     success_url = reverse_lazy('programa')
     template_name = 'gamesapp/programa_confirm_delete.html'
 
 
 # Videojuego ****************************************************************************************************
-class VideojuegoCreateView(VideojuegoMixin, SuccessMessageMixin, CreateView):
+class VideojuegoCreateView(AreaRestringidaMixin, VideojuegoMixin, SuccessMessageMixin, CreateView):
     # model = Videojuego
     # fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
     #           'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
@@ -242,7 +243,7 @@ class VideojuegoCreateView(VideojuegoMixin, SuccessMessageMixin, CreateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class VideojuegoUpdateView(VideojuegoMixin, SuccessMessageMixin, UpdateView):
+class VideojuegoUpdateView(AreaRestringidaMixin, VideojuegoMixin, SuccessMessageMixin, UpdateView):
     model = Videojuego
 
     success_message = "Videojuego editado exitosamente"
@@ -251,7 +252,7 @@ class VideojuegoUpdateView(VideojuegoMixin, SuccessMessageMixin, UpdateView):
         return self.success_message + ' - ' + str(self.object)
 
 
-class VideojuegoDeleteView(DeleteView):
+class VideojuegoDeleteView(AreaRestringidaMixin, DeleteView):
     model = Videojuego
     success_url = reverse_lazy('videojuego')
     template_name = 'gamesapp/videojuego_confirm_delete.html'
@@ -352,7 +353,7 @@ class VideojuegoDetailView(TemplateView):
 
 
 # Recopilación **************************************************************************************************
-class RecopilacionCreateView(RecopilacionMixin, SuccessMessageMixin, CreateView):
+class RecopilacionCreateView(AreaRestringidaMixin, RecopilacionMixin, SuccessMessageMixin, CreateView):
     # model = Recopilacion
     # fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
     #           'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
@@ -364,7 +365,7 @@ class RecopilacionCreateView(RecopilacionMixin, SuccessMessageMixin, CreateView)
         return self.success_message + ' - ' + str(self.object)
 
 
-class RecopilacionUpdateView(RecopilacionMixin, SuccessMessageMixin, UpdateView):
+class RecopilacionUpdateView(AreaRestringidaMixin, RecopilacionMixin, SuccessMessageMixin, UpdateView):
     model = Recopilacion
 
     success_message = "Recopilación editada exitosamente"
@@ -373,7 +374,7 @@ class RecopilacionUpdateView(RecopilacionMixin, SuccessMessageMixin, UpdateView)
         return self.success_message + ' - ' + str(self.object)
 
 
-class RecopilacionDeleteView(DeleteView):
+class RecopilacionDeleteView(AreaRestringidaMixin, DeleteView):
     model = Recopilacion
     success_url = reverse_lazy('recopilacion')
     template_name = 'gamesapp/recopilacion_confirm_delete.html'

@@ -66,12 +66,6 @@ INSTALLED_APPS = [
 
 ]
 
-# Variable de configuración utilizada para especificar el ID del sitio que se está utilizando actualmente. Se utiliza en conjunción con la aplicación 'sites' de Django. Por defecto crea un registro, por ello lo igualamos a 1
-SITE_ID = 1
-
-# Variable de configuración utilizada para especificar el nombre del sitio web o aplicación, se utiliza en conjunción con la variable SITE_ID y la aplicación 'sites' de Django para identificar el sitio actualmente en uso y nos sirve para personalizar emails que hacen referencia al nombre del sitio
-#SITE_NAME = 'kat-mascotas.online'
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -145,6 +139,15 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+# Variable de configuración utilizada para especificar el ID del sitio que se está utilizando actualmente. Se utiliza en conjunción con la aplicación 'sites' de Django. Por defecto crea un registro, por ello lo igualamos a 1
+SITE_ID = 1
+
+# Variable de configuración utilizada para especificar el nombre del sitio web o aplicación, se utiliza en conjunción con la variable SITE_ID y la aplicación 'sites' de Django para identificar el sitio actualmente en uso y nos sirve para personalizar emails que hacen referencia al nombre del sitio
+#SITE_NAME = 'shelfcollector.pythonanywhere.com'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/panel/'
+LOGOUT_REDIRECT_URL = '/login/'
 
 #Configuramos el sistema de gestión de usuarios para que requiera una dirección de correo electrónico para el registro y el inicio de sesión, en lugar de requerir un nombre de usuario. Utilizará el email como método de autenticación para el inicio de sesión
 #La variable ACCOUNT_USER_MODEL_USERNAME_FIELD se utiliza para especificar el campo del modelo de usuario que se utilizará como nombre de usuario para iniciar sesión. Si se establece en None, indica que el sistema no utilizará un nombre de usuario para iniciar sesión
