@@ -47,7 +47,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
                     'display_desarrolladores', 'display_modos_juego', 'display_generos',
                     'display_plataformas', 'precio', 'display_edad_recomendada',
                     'display_tipo_contenido', 'tenemos', 'wish_list', 'display_coleccion',
-                    'formato', 'display_programa', 'display_carpetas']
+                    'formato', 'display_programa', 'display_carpetas', 'usuario']
 
     def display_descripcion(self, obj):
         truncated_text = Truncator(obj.descripcion).chars(60)

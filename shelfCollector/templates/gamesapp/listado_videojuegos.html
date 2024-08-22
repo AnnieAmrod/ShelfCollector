@@ -1,0 +1,81 @@
+{% extends 'common/base_gamesapp.html' %}
+
+
+<!--
+{% load especies_mperdida_dropdown %}
+{% load colores_mperdida_dropdown %}
+{% load razas_mperdida_dropdown %}
+-->
+
+{% block content %}
+<div class="container-fluid pb-5">
+    <div class="row mt-5">
+        <!--
+        <div class="col-md-3">
+            <h2>Filtros</h2>
+            <hr>
+                {% especie_mperdida_dropdown %}
+                {% color_mperdida_dropdown %}
+                {% raza_mperdida_dropdown %}
+            <form method="GET">
+
+                <hr>
+                <h4>Ubicación</h4>
+                <div class="form-group">
+                    <label for="ubicacion">Introduce una ubicación:</label>
+                    <input id="id_filtros" type="text" name="lugar_perdida" placeholder="Ubicación">
+                </div>
+                <hr>
+                <h4>Tamaño</h4>
+                <div class="form-group">
+                    <label for="ubicacion">Introduce el tamaño (En cm):</label>
+                    <input id="id_filtros" type="text" name="tamano" placeholder="Tamaño">
+                </div>
+                <hr>
+                <h4>Pelo</h4>
+                <div class="form-group">
+                    <label for="ubicacion">Introduce el tipo de pelo (corto/medio/largo):</label>
+                    <input id="id_filtros" type="text" name="pelo" placeholder="Pelo">
+                </div>
+                <br>
+
+                <button class="btn mt-1 mt-lg-0" type="submit">Filtrar</button>
+                <a class="btn mt-1 mt-lg-0" href="{% url 'm_perdida' %}">Borrar filtros</a>
+            </form>
+        </div>
+        -->
+        <div class="col-md-9 pb-5">
+            <h1>Listado de videojuegos</h1>
+            <div class="row">
+                {% if videojuegos %}
+                    {% for videojuego in videojuegos %}
+                        <div class="col-md-4 mb-3">
+                            {% if user.is_authenticated and videojuego.usuario == user %}
+                            <a href="{% url 'videojuego_update' pk=videojuego.id %}">
+                            {% else %}
+                            <a href="{% url 'videojuego_detail' id=videojuego.id %}">
+                            {% endif %}
+                                <div class="card lostfind">
+                                    {% if videojuego.img %}
+                                        <img src="{{ videojuego.img }}" class="card-img-top" alt="{{ videojuego.nombre }}">
+                                    {% endif %}
+                                    <div class="card-body lostfind">
+                                        <h2 class="card-title h5">{{ videojuego.nombre }}</h5>
+                                        {% if videojuego.descripcion|length > 70 %}
+                                        <p class="card-text">{{ videojuego.descripcion|safe|slice:":70" }}...</p>
+                                        {% else %}
+                                        <p class="card-text">{{ videojuego.descripcion|safe|slice:":70" }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No se han encontrado videojuegos</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

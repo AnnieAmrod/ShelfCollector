@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 # from shelfCollector.common.models import Genero
 from common.models import Genero, Carpeta
+from usuario.models import Usuario
 from ckeditor.fields import RichTextField
 
 
@@ -95,7 +96,7 @@ class EdadRecomendada(models.Model):
                             verbose_name='Color',
                             null=False,
                             blank=False)
-    descripcion = models.CharField(
+    descripcion = models.TextField(
                             max_length=200,
                             verbose_name='Descripción',
                             #unique=True,
@@ -196,7 +197,7 @@ class Videojuego(models.Model):
                             #unique=True,
                             null=False,
                             blank=False)
-    descripcion = models.CharField(
+    descripcion = models.TextField(
                             max_length=4000,
                             verbose_name='Descripción',
                             help_text='La encontrarás tras la portada',
@@ -292,6 +293,12 @@ class Videojuego(models.Model):
                             verbose_name='Carpeta',
                             blank=True,
                             related_name='videojuegos_carpetas')
+    usuario = models.ForeignKey(
+                            Usuario,
+                            verbose_name='Usuario',
+                            on_delete=models.PROTECT,
+                            null=False,
+                            blank=False)
 
     class Meta:
         verbose_name = 'Videojuego'
@@ -415,7 +422,7 @@ class Recopilacion(models.Model):
                             null=True,
                             blank=True)
     programa = models.ManyToManyField(
-                            TipoContenido,
+                            Programa,
                             verbose_name='Programa',
                             blank=True,
                             related_name='recopilaciones_programa')

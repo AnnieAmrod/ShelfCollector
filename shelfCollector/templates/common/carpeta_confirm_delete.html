@@ -1,0 +1,12 @@
+{% extends 'common/base_gamesapp.html' %}
+{% block content %}
+<div class="container">
+    <h2>Eliminar una Carpeta</h2>
+    <form method="post">{% csrf_token %}
+        <p>¿Está seguro que quiere eliminar esta carpeta "{{ object }}"?</p>
+        {{ form }}
+        <input type="submit" value="Confirmar" class="btn">
+        <a href="{% url 'carpeta_update' object.pk %}" class="btn">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

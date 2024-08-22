@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView
 
 from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
-                     Programa, Videojuego, Recopilacion)
+                     Programa, Videojuego, Recopilacion, Carpeta)
 from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
                      TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin, RecopilacionMixin)
 from common.mixins import AreaRestringidaMixin
@@ -239,8 +239,32 @@ class VideojuegoCreateView(AreaRestringidaMixin, VideojuegoMixin, SuccessMessage
 
     success_message = "Videojuego creado exitosamente"
 
+    def form_valid(self, form):
+        # Obtener el usuario actual
+        user = self.request.user
+
+        # Asignar el usuario actual al campo 'usuario' del formulario
+        form.instance.usuario = user
+
+        # Verificar si ya existe un videojuego con el mismo nombre y usuario
+        if Videojuego.objects.filter(nombre=form.cleaned_data['nombre'],
+                                     anio=form.cleaned_data['anio'],
+                                     usuario=self.request.user).exists():
+            form.add_error('nombre', 'Ya existe un videojuego con este nombre y año para tu cuenta.')
+            return self.form_invalid(form)
+
+        return super().form_valid(form)
+
     def get_success_message(self, cleaned_data):
         return self.success_message + ' - ' + str(self.object)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Verificar si hay carpetas disponibles en la base de datos
+        context['hay_carpetas'] = Carpeta.objects.exists()
+
+        return context
 
 
 class VideojuegoUpdateView(AreaRestringidaMixin, VideojuegoMixin, SuccessMessageMixin, UpdateView):
@@ -250,6 +274,14 @@ class VideojuegoUpdateView(AreaRestringidaMixin, VideojuegoMixin, SuccessMessage
 
     def get_success_message(self, cleaned_data):
         return self.success_message + ' - ' + str(self.object)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Verificar si hay carpetas disponibles en la base de datos
+        context['hay_carpetas'] = Carpeta.objects.exists()
+
+        return context
 
 
 class VideojuegoDeleteView(AreaRestringidaMixin, DeleteView):
@@ -320,7 +352,7 @@ class VideojuegoListView(TemplateView):
             videojuegos = videojuegos.filter(carpeta_id=carpeta_id)
 
         # Obtener todos los videojuegos filtrados
-        context['videojuego'] = videojuegos
+        context['videojuegos'] = videojuegos
 
         return context
 

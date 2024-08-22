@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container py-5">
     <!-- Para crear elementos -->
-    <h2>{{object|yesno:'Actualizar desarrollador,Creación de un nuevo desarrollador'}}</h2>
+    <h2>{{object|yesno:'Actualizar género,Creación de un nuevo género'}}</h2>
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
 
         {{ form.non_field_errors }}
@@ -28,7 +28,7 @@
                 <div>
                     <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}" >
                     {% if object %}
-                        <a class="btn" role="button" href="{% url 'desarrollador_delete' object.id %}"> Eliminar </a>
+                        <a class="btn" role="button" href="genero_delete"> Eliminar </a>
                     {% endif %}
                 </div>
             </div>

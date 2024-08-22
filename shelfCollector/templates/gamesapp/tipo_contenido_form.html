@@ -5,11 +5,29 @@
 <div class="container py-5">
     <!-- Para crear elementos -->
     <h2>{{object|yesno:'Actualizar tipo de contenido,Creación de un nuevo tipo de contenido'}}</h2>
-    <form method="post" enctype="multipart/form-data" novalidate>{% crispy form %}
-        <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}">
-        {% if object %}
-            <a class="btn" href="{% url 'tipo_contenido_delete' object.id %}"> Eliminar </a>
-        {% endif %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-6 mb-3">
+                    {{ form.nombre.errors }}
+                    <label for="{{ form.nombre.id_for_label }}">Tipo de Contenido</label> <br>
+                    {{ form.nombre }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}" >
+                    {% if object %}
+                        <a class="btn" role="button" href="{% url 'tipo_contenido_delete' object.id %}"> Eliminar </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 {% endblock %}
