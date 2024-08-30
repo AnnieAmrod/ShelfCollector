@@ -47,24 +47,21 @@
         </div>
 
         <div class="col-md-9 pb-5">
-            <h1>Listado de videojuegos</h1>
+            <h1>Listado de recopilaciones</h1>
             <div class="row">
-                {% if videojuegos %}
-                    {% for videojuego in videojuegos %}
+                {% if recopilaciones %}
+                    {% for recopilacion in recopilaciones %}
                         <div class="col-md-2 mb-3">
-                            {% if user.is_authenticated and videojuego.usuario == user %}
+                            {% if user.is_authenticated and recopilacion.usuario == user %}
                             <a href="{% url 'videojuego_update' pk=videojuego.id %}">
                             {% else %}
                             <a href="{% url 'videojuego_detail' id=videojuego.id %}">
                             {% endif %}
-                                <div class="card game">
+                                <div class="card lostfind">
                                     {% if videojuego.img %}
-                                        <img src="{{ videojuego.img }}" class="card-img-top {% if videojuego.wish_list %}wishlist-img{% endif %}" alt="{{ videojuego.nombre }}">
-                                        {% if videojuego.wish_list %}
-                                            <span class="badge badge-warning wishlist-badge">Wishlist</span>
-                                        {% endif %}
+                                        <img src="{{ videojuego.img }}" class="card-img-top" alt="{{ videojuego.nombre }}">
                                     {% endif %}
-                                    <div class="card-body game">
+                                    <div class="card-body lostfind">
                                         <h2 class="card-title h5">{{ videojuego.nombre }}</h5>
                                         {% if videojuego.descripcion|length > 70 %}
                                         <p class="card-text">{{ videojuego.descripcion|safe|slice:":70" }}...</p>

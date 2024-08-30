@@ -1,0 +1,20 @@
+<label class="h4" for="modo_juego">Modo de Juego</label>
+<select id="modo_juego" name="modo_juego" class="form-select" onchange="redirectToSelectedOptionModoJuego()">
+    <option selected disabled>Selecciona un modo de juego</option>
+    {% for modo_juego in modos_juego %}
+        <option value="{{ modo_juego.id }}">{{ modo_juego.modo_juego }}</option>
+    {% endfor %}
+</select>
+<script>
+    function redirectToSelectedOptionModoJuego() {
+        var selectElement = document.getElementById("modo_juego");
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var modoJuegoId = selectedOption.value;
+
+        if (modoJuegoId) {
+            var url = "{% url 'videojuego_modo_juego' modo_juego_id=0 %}"; // Obtener la URL con un valor de ejemplo para modo_juego_id
+            url = url.replace('0', modoJuegoId); // Reemplazar el valor del parámetro en la URL
+            window.location.href = url;
+        }
+    }
+</script>

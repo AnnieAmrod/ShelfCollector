@@ -1,0 +1,20 @@
+<label class="h4" for="plataforma">Plataforma</label>
+<select id="plataforma" name="plataforma" class="form-select" onchange="redirectToSelectedOptionPlataforma()">
+    <option selected disabled>Selecciona un plataforma</option>
+    {% for plataforma in plataformas %}
+        <option value="{{ plataforma.id }}">{{ plataforma.nombre }}</option>
+    {% endfor %}
+</select>
+<script>
+    function redirectToSelectedOptionPlataforma() {
+        var selectElement = document.getElementById("plataforma");
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var plataformaId = selectedOption.value;
+
+        if (plataformaId) {
+            var url = "{% url 'videojuego_plataforma' plataforma_id=0 %}"; // Obtener la URL con un valor de ejemplo para plataforma_id
+            url = url.replace('0', plataformaId); // Reemplazar el valor del parámetro en la URL
+            window.location.href = url;
+        }
+    }
+</script>

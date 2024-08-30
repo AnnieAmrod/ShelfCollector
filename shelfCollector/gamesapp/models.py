@@ -303,7 +303,7 @@ class Videojuego(models.Model):
     class Meta:
         verbose_name = 'Videojuego'
         verbose_name_plural = 'Videojuegos'
-        unique_together = ['nombre', 'anio']
+        unique_together = ['nombre', 'anio', 'usuario']
 
     def __str__(self):
         return self.nombre
@@ -433,16 +433,23 @@ class Recopilacion(models.Model):
                             related_name='recopilaciones_carpetas')
     videojuegos = models.ManyToManyField(
                             Videojuego,
-                            verbose_name='Videojuegos', related_name='recopilaciones')
+                            verbose_name='Videojuegos',
+                            related_name='recopilaciones')
+    usuario = models.ForeignKey(
+                            Usuario,
+                            verbose_name='Usuario',
+                            on_delete=models.PROTECT,
+                            null=False,
+                            blank=False)
 
     class Meta:
         verbose_name = 'Recopilación'
         verbose_name_plural = 'Recopilaciones'
-        unique_together = ['nombre', 'anio']
+        unique_together = ['nombre', 'anio', 'usuario']
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Solo calcular la sinopsis al crear la instancia, no al actualizar
-            self.sinopsis = self.generate_combined_sinopsis()
+    #    if not self.pk:  # Solo calcular la sinopsis al crear la instancia, no al actualizar
+    #        self.sinopsis = self.generate_combined_sinopsis()
         super().save(*args, **kwargs)
 
     def generate_combined_sinopsis(self):

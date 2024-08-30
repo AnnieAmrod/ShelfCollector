@@ -1,0 +1,20 @@
+<label class="h4" for="distribuidor">Distribuidor</label>
+<select id="distribuidor" name="distribuidor" class="form-select" onchange="redirectToSelectedOptionDistribuidor()">
+    <option selected disabled>Selecciona un distribuidor</option>
+    {% for distribuidor in distribuidores %}
+        <option value="{{ distribuidor.id }}">{{ distribuidor.nombre }}</option>
+    {% endfor %}
+</select>
+<script>
+    function redirectToSelectedOptionDistribuidor() {
+        var selectElement = document.getElementById("distribuidor");
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var distribuidorId = selectedOption.value;
+
+        if (distribuidorId) {
+            var url = "{% url 'videojuego_distribuidor' distribuidor_id=0 %}"; // Obtener la URL con un valor de ejemplo para distribuidor_id
+            url = url.replace('0', distribuidorId); // Reemplazar el valor del parámetro en la URL
+            window.location.href = url;
+        }
+    }
+</script>

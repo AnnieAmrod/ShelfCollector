@@ -43,15 +43,24 @@ urlpatterns = [
     path('recopilacion_delete/<int:pk>/', views.RecopilacionDeleteView.as_view(), name='recopilacion_delete'),
 
     path('videojuegos/', views.VideojuegoListView.as_view(), name='videojuegos'),
-    #path('videojuego/<int:distribuidor_id>/', views.VideojuegoListView.as_view(), name='videojuego_distribuidor'),
-    #path('videojuego/<int:desarrollador_id>/', views.VideojuegoListView.as_view(), name='videojuego_desarrollador'),
-    #path('videojuego/<int:modo_juego_id>/', views.VideojuegoListView.as_view(), name='videojuego_modo_juego'),
-    #path('videojuego/<int:genero_id>/', views.VideojuegoListView.as_view(), name='videojuego_genero'),
-    #path('videojuego/<int:plataforma_id>/', views.VideojuegoListView.as_view(), name='videojuego_plataforma'),
-    #path('videojuego/<int:coleccion_id>/', views.VideojuegoListView.as_view(), name='videojuego_coleccion'),
-    #path('videojuego/<int:carpeta_id>/', views.VideojuegoListView.as_view(), name='videojuego_carpeta'),
+    path('videojuegos/distribuidor/<int:distribuidor_id>/', views.VideojuegoListView.as_view(), name='videojuego_distribuidor'),
+    path('videojuegos/desarrollador/<int:desarrollador_id>/', views.VideojuegoListView.as_view(), name='videojuego_desarrollador'),
+    path('videojuegos/modo/<int:modo_juego_id>/', views.VideojuegoListView.as_view(), name='videojuego_modo_juego'),
+    path('videojuegos/genero/<int:genero_id>/', views.VideojuegoListView.as_view(), name='videojuego_genero'),
+    path('videojuegos/plataforma/<int:plataforma_id>/', views.VideojuegoListView.as_view(), name='videojuego_plataforma'),
+    path('videojuegos/coleccion/<int:coleccion_id>/', views.VideojuegoListView.as_view(), name='videojuego_coleccion'),
+    path('videojuegos/carpeta/<int:carpeta_id>/', views.VideojuegoListView.as_view(), name='videojuego_carpeta'),
     path('videojuego/<int:id>/', views.VideojuegoDetailView.as_view(), name='videojuego_detail'),
 
+    path('recopilaciones/', views.RecopilacionListView.as_view(), name='recopilaciones'),
+    path('recopilaciones/distribuidor/<int:distribuidor_id>/', views.RecopilacionListView.as_view(), name='recopilacion_distribuidor'),
+    path('recopilaciones/desarrollador/<int:desarrollador_id>/', views.RecopilacionListView.as_view(), name='recopilacion_desarrollador'),
+    path('recopilaciones/modo/<int:modo_juego_id>/', views.RecopilacionListView.as_view(), name='recopilacion_modo_juego'),
+    path('recopilaciones/genero/<int:genero_id>/', views.RecopilacionListView.as_view(), name='recopilacion_genero'),
+    path('recopilaciones/plataforma/<int:plataforma_id>/', views.RecopilacionListView.as_view(), name='recopilacion_plataforma'),
+    path('recopilaciones/coleccion/<int:coleccion_id>/', views.RecopilacionListView.as_view(), name='recopilacion_coleccion'),
+    path('recopilaciones/carpeta/<int:carpeta_id>/', views.RecopilacionListView.as_view(), name='recopilacion_carpeta'),
+    path('recopilacion/<int:id>/', views.RecopilacionDetailView.as_view(), name='recopilacion_detail'),
 
 ]
 

@@ -4,7 +4,7 @@ from .forms import UsuarioRegistradoForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import UpdateView
-# from common.mixins import AreaRestringidaMixin
+from common.mixins import AreaRestringidaMixin
 # Create your views here.
 
 class LoginFormView(LoginView):
@@ -17,7 +17,7 @@ class LoginFormView(LoginView):
         return context
 
 class UsuarioRegistradoUpdateView(
-    #AreaRestringidaMixin,
+    AreaRestringidaMixin,
     SuccessMessageMixin, UpdateView):
     form_class = UsuarioRegistradoForm
     model = Usuario
