@@ -1,0 +1,216 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container mt-5 pb-5">
+    <div class="row">
+        {% if recopilacion.img %}
+        <div class="col-12 col-md-12 col-lg-4 mb-3 detail-img">
+            <img src="{{ recopilacion.img }}" class="img-fluid rounded {% if recopilacion.wish_list or recopilacion.tenemos == 'n' %}wishlist-img{% endif %}" alt="{{ recopilacion.nombre }}">
+            {% if recopilacion.wish_list %}
+                <span class="badge wishlist-badge">Wishlist</span>
+            {% elif recopilacion.tenemos == 'n' %}
+            <span class="badge wishlist-badge">No tenemos</span>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="col-md-6 col-lg-4">
+            <! ------------------------------- NOMBRE ----------------------------------->
+            <h2>{{ recopilacion.nombre }}</h2>
+            <! ---------------------------- VIDEOJUEGOS --------------------------------->
+            <p><strong>Videojuegos:</strong>
+                {% for videojuego in recopilacion.videojuegos.all %}
+                        {{ videojuego }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+            </p>
+            <! ---------------------------- DESCRIPCIÓN --------------------------------->
+            <p><strong>Descripción:</strong> {% if recopilacion.descripcion %} {{ recopilacion.descripcion|safe }} {% else %} Desconocida {% endif %}</p>
+            <p><strong>Año de publicación:</strong> {{ recopilacion.anio }}</p>
+            <! --------------------------- DISTRIBUIDOR -------------------------------->
+            {% if recopilacion.distribuidor.count == 1 %}
+                <p><strong>Distribuidor:</strong>
+            {% else %}
+                <p><strong>Distribuidores:</strong>
+            {% endif %}
+            {% if recopilacion.distribuidor.count == 1 %}
+                {% for distribuidor in recopilacion.distribuidor.all %}
+                    {{ distribuidor }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for distribuidor in recopilacion.distribuidor.all %}
+                    <br>· {{ distribuidor }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! --------------------------- DESARROLLADOR -------------------------------->
+            {% if recopilacion.desarrollador.count == 1 %}
+                <p><strong>Desarrollador:</strong>
+            {% else %}
+                <p><strong>Desarrolladores:</strong>
+            {% endif %}
+            {% if recopilacion.desarrollador.count == 1 %}
+                {% for desarrollador in recopilacion.desarrollador.all %}
+                    {{ desarrollador }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for desarrollador in recopilacion.desarrollador.all %}
+                    <br>· {{ desarrollador }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! --------------------------- MODO DE JUEGO -------------------------------->
+            {% if recopilacion.modo_juego.count == 1 %}
+                <p><strong>Modo de juego:</strong>
+            {% else %}
+                <p><strong>Modos de juego:</strong>
+            {% endif %}
+            {% if recopilacion.modo_juego.count == 1 %}
+                {% for modo_juego in recopilacion.modo_juego.all %}
+                    {{ modo_juego }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for modo_juego in recopilacion.modo_juego.all %}
+                    <br>· {{ modo_juego }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! ----------------------------- WISHLIST ----------------------------------->
+            <!-- <p><strong>Wishlist:</strong> {% if recopilacion.wish_list == True %}Si{% else %}No{% endif %}</p> -->
+            <! ------------------------------- GÉNERO ------------------------------------>
+            {% if recopilacion.genero.count == 1 %}
+                <p><strong>Género:</strong>
+            {% else %}
+                <p><strong>Géneros:</strong>
+            {% endif %}
+            {% if recopilacion.genero.count == 1 %}
+                {% for genero in recopilacion.genero.all %}
+                    {{ genero }}
+                {% endfor %}
+                </p>
+            {% else %}
+            <br>
+                {% for genero in recopilacion.genero.all %}
+                    {{ genero }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <! ------------------------------ SINOPSIS ---------------------------------->
+            <!-- Sinopsis con funcionalidad de "Leer más" -->
+            {% if recopilacion.sinopsis %}
+                <p><strong>Sinopsis:</strong></p>
+                <p id="sinopsis-preview">
+                    {{ recopilacion.sinopsis|striptags|linebreaksbr|slice:":200" }}{% if recopilacion.sinopsis|striptags|length > 200 %}...{% endif %}
+                </p>
+                {% if recopilacion.sinopsis|striptags|length > 200 %}
+                    <p id="sinopsis-full" style="display: none;">
+                        {{ recopilacion.sinopsis|striptags|linebreaksbr }}
+                    </p>
+                    <a href="javascript:void(0);" onclick="toggleReadMore()" id="read-more-link">Leer más</a>
+                {% endif %}
+            {% else %}
+                <p>Desconocida</p>
+            {% endif %}
+            <br>
+            <br>
+            <! ------------------------------- PRECIO ----------------------------------->
+            {% if recopilacion.formato != 'p' and recopilacion.precio.exists %}<p><strong>Precio:</strong> {% if recopilacion.precio %}{{recopilacion.precio}}{% else %}Desconocido{% endif %}</p> {% endif %}
+            <! ----------------------------- PLATAFORMA ---------------------------------->
+            {% if recopilacion.plataforma.count == 1 %}
+                <p><strong>Plataforma:</strong>
+            {% else %}
+                <p><strong>Plataformas:</strong>
+            {% endif %}
+            {% if recopilacion.plataforma.count == 1 %}
+                {% for plataforma in recopilacion.plataforma.all %}
+                    {{ plataforma }}
+                {% endfor %}
+                </p>
+            {% else %}
+            <br>
+                {% for plataforma in recopilacion.plataforma.all %}
+                    {{ plataforma }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <p><strong>Edad recomendada:</strong> {{ recopilacion.edad_recomendada }}</p>
+            <! ------------------------- TIPO DE CONTENIDO ------------------------------>
+            {% if recopilacion.tipo_contenido.exists %}
+                {% if recopilacion.tipo_contenido.count == 1 %}
+                    <p><strong>Tipo de contenido:</strong>
+                {% else %}
+                    <p><strong>Tipos de contenido:</strong>
+                {% endif %}
+                {% if recopilacion.tipo_contenido.count == 1 %}
+                    {% for tipo_contenido in recopilacion.tipo_contenido.all %}
+                        {{ tipo_contenido }}
+                    {% endfor %}
+                    </p>
+                {% else %}
+                <br>
+                    {% for tipo_contenido in recopilacion.tipo_contenido.all %}
+                        {{ tipo_contenido }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            {% endif %}
+            <! ------------------------------ TENEMOS ----------------------------------->
+            <p><strong>Tenemos:</strong> {% if recopilacion.tenemos == 'j' %}Juego{% elif recopilacion.tenemos == 'n' %}No tenemos{% elif recopilacion.tenemos == 'r' %}Recopilación{% endif %}</p>
+            <! ----------------------------- COLECCIÓN ---------------------------------->
+            {% if recopilacion.coleccion %} <p><strong>Colección:</strong> {{ recopilacion.coleccion }}</p> {% endif %}
+            <! ------------------------------ FORMATO ----------------------------------->
+            {% if recopilacion.formato %}
+                <p><strong>Formato:</strong>
+                    {% if recopilacion.formato == 'f' %}Físico
+                    {% elif recopilacion.formato == 'd' %}Digital
+                        {% if videojuego.programa.all %}
+                            ({{ videojuego.programa.all|join:", " }})
+                        {% else %}
+                            (N/A)
+                        {% endif %}
+                    {% elif recopilacion.formato == 'p' %}Pirata
+                    {% elif recopilacion.formato == 'c' %}Código de descarga
+                    {% endif %}
+                </p>
+                {% if recopilacion.formato == 'd' and recopilacion.carpeta.exists %} <p><strong>Carpeta:</strong> {{ recopilacion.carpeta }}</p> {% endif %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'recopilacion_update' pk=recopilacion.id %}" class="btn">Editar</a>
+            {% endif %}
+            <a href="{% url 'recopilaciones' %}" class="btn">Volver</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleReadMore() {
+        var previewText = document.getElementById("sinopsis-preview");
+        var fullText = document.getElementById("sinopsis-full");
+        var readMoreLink = document.getElementById("read-more-link");
+
+        if (fullText.style.display === "none") {
+            previewText.style.display = "none";  // Oculta el texto corto
+            fullText.style.display = "block";    // Muestra el texto completo
+            readMoreLink.innerHTML = "Leer menos";
+        } else {
+            previewText.style.display = "block"; // Muestra el texto corto
+            fullText.style.display = "none";     // Oculta el texto completo
+            readMoreLink.innerHTML = "Leer más";
+        }
+    }
+
+    // Inicializar el estado del texto largo como oculto
+    document.addEventListener("DOMContentLoaded", function() {
+        var fullText = document.getElementById("sinopsis-full");
+        if (fullText) {
+            fullText.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}
+
+
+

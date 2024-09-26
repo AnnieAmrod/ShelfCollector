@@ -1,5 +1,5 @@
-<label class="h4" for="coleccion">Colección</label>
-<select id="coleccion" name="coleccion" class="form-select" onchange="redirectToSelectedOptionColeccion()">
+<label class="h4 col-md-6 col-12" for="coleccion">Colección</label>
+<select id="coleccion" name="coleccion" class="form-select col-md-6 col-12" onchange="redirectToSelectedOptionColeccion()">
     <option selected disabled>Selecciona una colección</option>
     {% for coleccion in colecciones %}
         <option value="{{ coleccion.id }}">{{ coleccion.nombre }}</option>

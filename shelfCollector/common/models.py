@@ -1,4 +1,5 @@
 from django.db import models
+from usuario.models import Usuario
 
 
 # Create your models here.
@@ -14,6 +15,12 @@ class Genero(models.Model):
                             max_length=300,
                             null=True,
                             blank=True)
+    usuario = models.ForeignKey(
+                            Usuario,
+                            verbose_name='Usuario',
+                            on_delete=models.PROTECT,
+                            null=False,
+                            blank=False)
 
     class Meta:
         verbose_name = 'Género'

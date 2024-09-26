@@ -2,7 +2,7 @@
 <header class="menu navbar navbar-expand-xl  d-none d-xl-flex navbar-dark sticky-top flex-md-nowrap p-0 shadow">
   <div class="container-fluid">
     <a class="navbar-brand col-md-3 col-lg-3 px-3 ml-5" href="{% url 'panel' %}">
-      <img src="{% static 'joystick_game.webp' %}" alt="Logo Shelf Collector" class="d-inline-block align-text-center">
+      <img src="{% static 'joystick_game.webp' %}" alt="Logo Shelf Collector" class="d-inline-block align-text-center logo">
       Gestiona tus colecciones
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,14 +17,17 @@
           <a class="nav-link{% if request.path == '/videojuegos/' %} active{% endif %}" href="{% url 'videojuegos' %}">Videojuegos</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link{% if request.path == '/recopilaciones/' %} active{% endif %}" href="{% url 'recopilaciones' %}">Recopilaciones</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link{% if request.path == '/libro/' %} active{% endif %}" href="{% url 'libro' %}">Libros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link{% if request.path == '/funko/' %} active{% endif %}" href="{% url 'funko' %}">Funkos</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link{% if request.path == '/conocenos' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto Shelf Collector</a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="nav-item text-nowrap">
@@ -67,14 +70,17 @@
             <a class="nav-link{% if request.path == '/videojuegos/' %} active{% endif %}" href="{% url 'videojuegos' %}">Videojuegos</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link{% if request.path == '/recopilaciones/' %} active{% endif %}" href="{% url 'recopilaciones' %}">Recopilaciones</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link{% if request.path == '/libro/' %} active{% endif %}" href="{% url 'libro' %}">Libros</a>
           </li>
           <li class="nav-item">
             <a class="nav-link{% if request.path == '/funko/' %} active{% endif %}" href="{% url 'funko' %}">Funkos</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link{% if request.path == '/conocenos/' %} active{% endif %}" href="{% url 'conocenos' %}">Conoce el proyecto Shelf Collector</a>
-          </li>
+          </li> -->
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario_registrado_update' pk=user.id %}">{{ user.get_username }}</a>

@@ -5,9 +5,10 @@ from django.db import models
 from common.models import Genero, Carpeta
 from usuario.models import Usuario
 from ckeditor.fields import RichTextField
+import html
 
 
-class Distibuidor(models.Model):
+class Distribuidor(models.Model):
     nombre = models.CharField(
                             max_length=60,
                             verbose_name='Nombre',
@@ -151,7 +152,7 @@ class Coleccion(models.Model):
 
 class Programa(models.Model):
     nombre = models.CharField(
-                            max_length=10,
+                            max_length=20,
                             verbose_name='Nombre',
                             unique=True,
                             null=False,
@@ -192,7 +193,7 @@ class Videojuego(models.Model):
     }
 
     nombre = models.CharField(
-                            max_length=60,
+                            max_length=70,
                             verbose_name='Nombre',
                             #unique=True,
                             null=False,
@@ -215,12 +216,12 @@ class Videojuego(models.Model):
                             blank=False,
                             null=False)
     img = models.CharField(
-                            max_length=100,
+                            max_length=160,
                             verbose_name='Imagen',
                             blank=True,
                             null=True)
     distribuidor = models.ManyToManyField(
-                            Distibuidor,
+                            Distribuidor,
                             verbose_name='Distribuidor',
                             blank=False,
                             related_name='videojuegos_distribuidores')
@@ -331,7 +332,7 @@ class Recopilacion(models.Model):
     }
 
     nombre = models.CharField(
-                            max_length=60,
+                            max_length=70,
                             verbose_name='Nombre',
                             unique=True,
                             null=False,
@@ -353,12 +354,12 @@ class Recopilacion(models.Model):
                             blank=False,
                             null=True)
     img = models.CharField(
-                            max_length=40,
+                            max_length=160,
                             verbose_name='Imagen',
                             blank=True,
                             null=True)
     distribuidor = models.ManyToManyField(
-                            Distibuidor,
+                            Distribuidor,
                             verbose_name='Distribuidor',
                             blank=False,
                             related_name='recopilaciones_distribuidores')
@@ -455,6 +456,7 @@ class Recopilacion(models.Model):
     def generate_combined_sinopsis(self):
         sinopsis_list = self.videojuegos.values_list('sinopsis', flat=True)
         combined_sinopsis = " ".join(sinopsis_list)
+        combined_sinopsis = html.unescape(combined_sinopsis)  # Convierte las entidades HTML a caracteres normales
         if len(combined_sinopsis) > 10000:
             combined_sinopsis = combined_sinopsis[:10000]  # Truncate to 10000 characters if necessary
         return combined_sinopsis

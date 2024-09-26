@@ -22,6 +22,9 @@ urlpatterns = [
     path('carpeta_update/<int:pk>/', views.CarpetaUpdateView.as_view(), name='carpeta_update'),
     path('carpeta_delete/<int:pk>/', views.CarpetaDeleteView.as_view(), name='carpeta_delete'),
 
+    path('generos/', views.GeneroListView.as_view(), name='generos'),
+    path('genero/<int:id>/', views.GeneroDetailView.as_view(), name='genero_detail'),
+
 ]
 
 # if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

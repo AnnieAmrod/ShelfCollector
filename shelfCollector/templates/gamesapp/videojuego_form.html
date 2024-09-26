@@ -11,114 +11,142 @@
         {{ form.non_field_errors }}
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="col-6 mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <!-- Nombre -->
+                <div class="col mb-3">
                     {{ form.nombre.errors }}
                     <label for="{{ form.nombre.id_for_label }}">Nombre</label> <br>
                     {{ form.nombre }}
                 </div>
-                <div class="col-6 mb-3">
+                <!-- Descripción -->
+                <div class="col mb-3">
                     {{ form.descripcion.errors }}
-                    <label for="{{ form.descripcion.id_for_label }}">Descripción</label> <br>
+                    <label for="{{ form.descripcion.id_for_label }}">Descripción</label> <small class="form-text text-muted">({{ form.descripcion.help_text }})</small> <br>
                     {{ form.descripcion }}
                 </div>
             </div>
 
 
-            <div class="col-md-4">
-                <div class="col-6 mb-3">
-                    {{ form.coleccion.errors }}
-                    <label for="{{ form.coleccion.id_for_label }}">Coleccion</label> <br>
-                    {{ form.coleccion }}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <!-- Año de lanzamiento -->
+                <div class="col mb-3">
+                    {{ form.anio.errors }}
+                    <label for="{{ form.anio.id_for_label }}">Año de lanzamiento</label> <br>
+                    {{ form.anio }}
                 </div>
-                <div class="col-6 mb-3">
-                    {{ form.plataforma.errors }}
-                    <label for="{{ form.plataforma.id_for_label }}">Plataforma</label> <br>
-                    {{ form.plataforma }}
-                </div>
-                <div class="col-6 mb-3">
+                <!-- Género -->
+                <div class="col mb-3">
                     {{ form.genero.errors }}
                     <label for="{{ form.genero.id_for_label }}">Género</label> <br>
                     {{ form.genero }}
                 </div>
-                <div class="col-6 mb-3">
+                <!-- Tenemos -->
+                <div class="col mb-3">
+                    {{ form.tenemos.errors }}
+                    <label for="{{ form.tenemos.id_for_label }}">Tenemos</label> <br>
+                    {{ form.tenemos }}
+                </div>
+                <!-- Wishlist -->
+                <div class="col mb-3" id="div_wishlist">
                     {{ form.wish_list.errors }}
                     <label for="{{ form.wish_list.id_for_label }}">Wish list</label> <br>
                     {{ form.wish_list }}
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="col-6 mb-3">
-                    {{ form.modo_juego.errors }}
-                    <label for="{{ form.devuelto.id_for_label }}">Modo de juego</label>
-                    {{ form.modo_juego }}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <!-- Colección -->
+                <div class="col mb-3">
+                    {{ form.coleccion.errors }}
+                    <label for="{{ form.coleccion.id_for_label }}">Coleccion</label> <br>
+                    {{ form.coleccion }}
                 </div>
-                <div class="col-6 mb-3">
-                    {{ form.anio.errors }}
-                    <label for="{{ form.anio.id_for_label }}">Año de lanzamiento</label> <br>
-                    {{ form.anio }}
+                <!-- Plataforma -->
+                <div class="col mb-3">
+                    {{ form.plataforma.errors }}
+                    <label for="{{ form.plataforma.id_for_label }}">Plataforma</label> <br>
+                    {{ form.plataforma }}
                 </div>
-                <div class="col-6 mb-3">
-                    {{ form.tenemos.errors }}
-                    <label for="{{ form.tenemos.id_for_label }}">Tenemos</label> <br>
-                    {{ form.tenemos }}
-                </div>
-                <div class="col-6 mb-3">
+                <!-- Formato -->
+                <div class="col mb-3">
                     {{ form.formato.errors }}
                     <label for="{{ form.precio.id_for_label }}">Formato</label> <br>
                     {{ form.formato }}
                 </div>
-                <div class="col-6" id="div_programa" style="display: none;">
-                    {{ form.programa.errors }}
-                    <label for="{{ form.programa.id_for_label }}">Programa</label> <br>
-                    {{ form.programa }}
-                </div>
-                <div class="col-6 mb-3" id="div_precio">
-                    {{ form.precio.errors }}
-                    <label for="{{ form.precio.id_for_label }}">Precio</label> <br>
-                    {{ form.precio }}
+            </div>
+
+            <div class="col-xl-3 col-lg-12 col-md-6">
+                <div class="row">
+                    <!-- Modo de juego -->
+                    <div class="col-12 col-lg-4 col-xl-12 mb-3">
+                        {{ form.modo_juego.errors }}
+                        <label for="{{ form.modo_juego.id_for_label }}">Modo de juego</label> <br>
+                        {{ form.modo_juego }}
+                    </div>
+
+                    <!-- Programa -->
+                    <div class="col-12 col-lg-4 col-xl-12 mb-3" id="div_programa" style="display: none;">
+                        {{ form.programa.errors }}
+                        <label for="{{ form.programa.id_for_label }}">Programa</label> <br>
+                        {{ form.programa }}
+                    </div>
+
+                    <!-- Precio -->
+                    <div class="col-12 col-lg-4 col-xl-12 mb-3" id="div_precio">
+                        {{ form.precio.errors }}
+                        <label for="{{ form.precio.id_for_label }}">Precio</label> <br>
+                        {{ form.precio }}
+                    </div>
+
+                    <!-- URL Imagen -->
+                    <div class="col-12 col-lg-4 col-xl-12 mb-3">
+                        {{ form.img.errors }}
+                        <label for="{{ form.img.id_for_label }}">URL Imagen</label> <br>
+                        {{ form.img }}
+                    </div>
                 </div>
             </div>
 
             <hr>
 
             <div class="col-md-4">
+                <!-- Sinopsis -->
                 <div class="mb-3">
                     {{ form.sinopsis.errors }}
-                    <label for="{{ form.sinopsis.id_for_label }}">Sinopsis</label> <br>
+                    <label for="{{ form.sinopsis.id_for_label }}">Sinopsis</label> <small class="form-text text-muted">({{ form.sinopsis.help_text }})</small> <br>
                     {{ form.sinopsis|safe }}
-                </div>
-                <div class="col-6 mb-3">
-                    {{ form.img.errors }}
-                    <label for="{{ form.img.id_for_label }}">URL Imagen</label> <br>
-                    {{ form.img }}
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="col-6 mb-3">
+            <div class="col-md-8 col-lg-8 col-xl-4">
+                <!-- Distribuidor -->
+                <div class="col-12 mb-3">
                     {{ form.distribuidor.errors }}
                     <label for="{{ form.distribuidor.id_for_label }}">Distribuidor</label> <br>
                     {{ form.distribuidor }}
                 </div>
-                <div class="col-6 mb-3">
+                <!-- Desarrollador -->
+                <div class="col-12 mb-3">
                     {{ form.desarrollador.errors }}
                     <label for="{{ form.desarrollador.id_for_label }}">Desarrollador</label>
                     {{ form.desarrollador }}
                 </div>
-                <div class="col-6 mb-3">
-                    {{ form.edad_recomendada.errors }}
-                    <label for="{{ form.edad_recomendada.id_for_label }}">Edad recomendada</label> <br>
-                    {{ form.edad_recomendada }}
-                </div>
-                <div class="col-6 mb-3">
-                    {{ form.tipo_contenido.errors }}
-                    <label for="{{ form.tipo_contenido.id_for_label }}">Tipo de contenido</label> <br>
-                    {{ form.tipo_contenido }}
-                </div>
-                <div class="col-6">
+            </div>
 
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="row">
+                    <!-- Edad recomendada -->
+                    <div class="col-12 col-lg-6 col-xl-12 col-md-4 mb-3">
+                        {{ form.edad_recomendada.errors }}
+                        <label for="{{ form.edad_recomendada.id_for_label }}">Edad recomendada</label> <br>
+                        {{ form.edad_recomendada }}
+                    </div>
+                    <!-- Tipo contenido -->
+                    <div class="col-12 col-lg-6 col-xl-12 col-md-8 mb-3">
+                        {{ form.tipo_contenido.errors }}
+                        <label for="{{ form.tipo_contenido.id_for_label }}">Tipo de contenido</label> <br>
+                        {{ form.tipo_contenido }}
+                    </div>
                 </div>
             </div>
 
@@ -132,14 +160,24 @@
                 <label for="{{ form.carpeta.id_for_label }}">Carpeta</label> <br>
                 {{ form.carpeta }}
             </div>
+
+            <hr>
+
             {% endif %}
+
             <div class="row">
-                <div>
-                    <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}" >
+                <div class="col">
+                    <input type="submit" class="btn" value="{{object|yesno:'Actualizar,Crear'}}">
                     {% if object %}
                         <a class="btn" role="button" href="{% url 'videojuego_delete' object.id %}"> Eliminar </a>
                     {% endif %}
                 </div>
+                <!-- Botón de volver -->
+                {% if object %}
+                    <div class="col text-end">
+                        <a href="{% url 'videojuego_detail' id=videojuego.id %}" class="btn btn-sm">Volver</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </form>
@@ -167,10 +205,25 @@
         }
     }
 
+    function handleTenemosChange() {
+        var tenemos = document.getElementById('{{ form.tenemos.id_for_label }}').value;
+        var divWishlist = document.getElementById('div_wishlist');
+
+        // Show Wish List only if "Tenemos" is "No tenemos"
+        if (tenemos === 'n') {
+            divWishlist.style.display = 'block';
+        } else {
+            divWishlist.style.display = 'none';
+        }
+    }
+
     // Ejecutar al cargar la página
     document.addEventListener('DOMContentLoaded', function () {
         handleFormatoChange();
+        handleTenemosChange();
+
         document.getElementById('{{ form.formato.id_for_label }}').addEventListener('change', handleFormatoChange);
+        document.getElementById('{{ form.tenemos.id_for_label }}').addEventListener('change', handleTenemosChange);
     });
 </script>
 {% endblock %}

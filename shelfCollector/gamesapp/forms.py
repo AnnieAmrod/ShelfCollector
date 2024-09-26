@@ -1,5 +1,5 @@
 from django import forms
-from .models import Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion, Programa, Videojuego, Recopilacion
+from .models import Distribuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion, Programa, Videojuego, Recopilacion
 from common.models import Genero, Carpeta
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field, Row
@@ -7,7 +7,7 @@ from crispy_forms.layout import Layout, Div, HTML, Field, Row
 
 class DistribuidorForm(forms.ModelForm):
     class Meta:
-        model = Distibuidor
+        model = Distribuidor
         fields = ['nombre', 'descripcion']
     def __init__(self, *args, **kwargs):
         super(DistribuidorForm, self).__init__(*args, **kwargs)
@@ -99,6 +99,26 @@ class VideojuegoForm(forms.ModelForm):
                 'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
                 'coleccion', 'formato', 'programa', 'carpeta']
 
+        help_texts = {
+            'descripcion': 'La encontrarás tras la portada',
+            'sinopsis': 'Explicación con (o sin) spoilers del juego',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(VideojuegoForm, self).__init__(*args, **kwargs)
+
+        # Ordenar los campos de selección alfabéticamente
+        self.fields['desarrollador'].queryset = Desarrollador.objects.all().order_by('nombre')
+        self.fields['distribuidor'].queryset = Distribuidor.objects.all().order_by('nombre')
+        self.fields['modo_juego'].queryset = Modo.objects.all().order_by('modo_juego')
+        self.fields['genero'].queryset = Genero.objects.all().order_by('nombre')
+        self.fields['plataforma'].queryset = Plataforma.objects.all().order_by('nombre')
+        # self.fields['edad_recomendada'].queryset = EdadRecomendada.objects.all().order_by('numero')
+        # self.fields['tipo_contenido'].queryset = TipoContenido.objects.all().order_by('nombre')
+        self.fields['coleccion'].queryset = Coleccion.objects.all().order_by('nombre')
+        self.fields['programa'].queryset = Programa.objects.all().order_by('nombre')
+        self.fields['carpeta'].queryset = Carpeta.objects.all().order_by('nombre')
+
 
 class RecopilacionForm(forms.ModelForm):
     class Meta:
@@ -106,7 +126,20 @@ class RecopilacionForm(forms.ModelForm):
         fields = ['nombre', 'descripcion', 'sinopsis', 'anio', 'img', 'distribuidor', 'desarrollador', 'modo_juego',
                 'genero', 'plataforma', 'precio', 'edad_recomendada', 'tipo_contenido', 'tenemos', 'wish_list',
                 'coleccion', 'formato', 'programa', 'carpeta', 'videojuegos']
+    def __init__(self, *args, **kwargs):
+        super(RecopilacionForm, self).__init__(*args, **kwargs)
 
+        # Ordenar los campos de selección alfabéticamente
+        self.fields['desarrollador'].queryset = Desarrollador.objects.all().order_by('nombre')
+        self.fields['distribuidor'].queryset = Distribuidor.objects.all().order_by('nombre')
+        self.fields['modo_juego'].queryset = Modo.objects.all().order_by('modo_juego')
+        self.fields['genero'].queryset = Genero.objects.all().order_by('nombre')
+        self.fields['plataforma'].queryset = Plataforma.objects.all().order_by('nombre')
+        # self.fields['edad_recomendada'].queryset = EdadRecomendada.objects.all().order_by('numero')
+        # self.fields['tipo_contenido'].queryset = TipoContenido.objects.all().order_by('nombre')
+        self.fields['coleccion'].queryset = Coleccion.objects.all().order_by('nombre')
+        self.fields['programa'].queryset = Programa.objects.all().order_by('nombre')
+        self.fields['carpeta'].queryset = Carpeta.objects.all().order_by('nombre')
 
 class VideojuegoAdminForm(forms.ModelForm):
     class Meta:
@@ -115,7 +148,7 @@ class VideojuegoAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VideojuegoAdminForm, self).__init__(*args, **kwargs)
-        self.fields['distribuidor'].queryset = Distibuidor.objects.all().order_by('nombre')
+        self.fields['distribuidor'].queryset = Distribuidor.objects.all().order_by('nombre')
         self.fields['desarrollador'].queryset = Desarrollador.objects.all().order_by('nombre')
         self.fields['modo_juego'].queryset = Modo.objects.all().order_by('modo_juego')
         self.fields['genero'].queryset = Genero.objects.all().order_by('nombre')

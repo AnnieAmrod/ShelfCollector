@@ -1,0 +1,47 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container mt-5 pb-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <! ------------------------------- NOMBRE ----------------------------------->
+            <h2>{{ genero.nombre }}</h2>
+            <! ---------------------------- DESCRIPCIÓN --------------------------------->
+            <p><strong>Descripción:</strong> {% if genero.descripcion %} {{ genero.descripcion|safe }} {% else %} Desconocida {% endif %}</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'genero_update' pk=genero.id %}" class="btn">Editar</a>
+            {% endif %}
+            <a href="{% url 'generos' %}" class="btn">Volver</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleReadMore() {
+        var previewText = document.getElementById("sinopsis-preview");
+        var fullText = document.getElementById("sinopsis-full");
+        var readMoreLink = document.getElementById("read-more-link");
+
+        if (fullText.style.display === "none") {
+            previewText.style.display = "none";  // Oculta el texto corto
+            fullText.style.display = "block";    // Muestra el texto completo
+            readMoreLink.innerHTML = "Leer menos";
+        } else {
+            previewText.style.display = "block"; // Muestra el texto corto
+            fullText.style.display = "none";     // Oculta el texto completo
+            readMoreLink.innerHTML = "Leer más";
+        }
+    }
+
+    // Inicializar el estado del texto largo como oculto
+    document.addEventListener("DOMContentLoaded", function() {
+        var fullText = document.getElementById("sinopsis-full");
+        if (fullText) {
+            fullText.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}
+
+
+

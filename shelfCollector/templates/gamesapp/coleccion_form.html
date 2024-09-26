@@ -11,13 +11,13 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="col-6 mb-3">
+                <div class="col-6 col-md-12 mb-3">
                     {{ form.nombre.errors }}
                     <label for="{{ form.nombre.id_for_label }}">Nombre</label> <br>
                     {{ form.nombre }}
                 </div>
 
-                <div class="col-6 mb-3">
+                <div class="col-6 col-md-12 mb-3">
                     {{ form.descripcion.errors }}
                     <label for="{{ form.descripcion.id_for_label }}">Descripción</label> <br>
                     {{ form.descripcion|safe }}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="col-6 mb-3">
+                <div class="col-6 col-md-12 mb-3">
                     {{ form.url.errors }}
                     <label for="{{ form.url.id_for_label }}">Url</label> <br>
                     {{ form.url }}

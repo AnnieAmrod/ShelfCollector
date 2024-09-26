@@ -23,7 +23,7 @@ class GeneroMixin(SuccessMessageMixin):
 
     def get_success_url(self):
         object = self.object
-        return reverse_lazy('programa_update', kwargs={'pk': object.id})
+        return reverse_lazy('genero_update', kwargs={'pk': object.id})
 
 
 class CarpetaMixin(SuccessMessageMixin):

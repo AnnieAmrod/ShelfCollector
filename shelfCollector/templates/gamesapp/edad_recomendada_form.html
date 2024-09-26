@@ -10,14 +10,14 @@
         {{ form.non_field_errors }}
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="col-6 mb-3">
+            <div class="col-md-6">
+                <div class="col-12 mb-3">
                     {{ form.numero.errors }}
                     <label for="{{ form.numero.id_for_label }}">Número</label> <br>
                     {{ form.numero }}
                 </div>
 
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                     {{ form.descripcion.errors }}
                     <label for="{{ form.descripcion.id_for_label }}">Descripción</label> <br>
                     {{ form.descripcion|safe }}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                     {{ form.color.errors }}
                     <label for="{{ form.color.id_for_label }}">Color</label> <br>
                     {{ form.color }}

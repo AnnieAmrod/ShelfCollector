@@ -1,0 +1,72 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container-fluid pb-5">
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <h2>Filtros</h2>
+            <hr>
+            <form method="GET">
+                <h4>Nombre</h4>
+                <div class="form-group">
+                    <label for="nombre">Introduce el nombre:</label>
+                    <input id="id_filtros" type="text" name="nombre" placeholder="Nombre">
+                </div>
+                <br>
+
+                <button class="btn mt-1 mt-lg-0" type="submit">Filtrar</button>
+                <a class="btn mt-1 mt-lg-0" href="{% url 'generos' %}">Borrar filtros</a>
+            </form>
+        </div>
+        <div class="col-md-9 pb-5">
+            <h1 class="pb-4">Listado de géneros</h1>
+            <div class="col-12 mx-auto">
+                {% if generos %}
+                <table class="table table-custom table-striped">
+                    <thead>
+                        <tr>
+                            <th>Género</th>
+                            {% if genero.descripcion != 0 %}
+                                <th>Descripción</th>
+                            {% endif %}
+                            {% if user.is_authenticated%}
+                                <th>Editar</th>
+                                <th>Borrar</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    {% for genero in generos %}
+                        <tr>
+                            <td><a class="text-reset pe-0 pe-xl-5" href="{% url 'genero_detail' genero.id %}">{{ genero.nombre }}</a></td>
+                            <td>
+                                {% if genero.descripcion|length > 80 %}
+                                    <a class="text-reset" href="{% url 'genero_detail' genero.id %}">{{ genero.descripcion|safe|slice:":80" }}...</a>
+                                {% elif genero.descripcion|length < 80 %}
+                                    <a class="text-reset" href="{% url 'genero_detail' genero.id %}">{{ genero.descripcion|safe }}</a>
+                                {% elif genero.descripcion|length == 0 %}
+                                    <a class="text-reset d-none" href="{% url 'genero_detail' genero.id %}"></a>
+                                {% endif %}
+                            </td>
+
+
+                            {% if user.is_authenticated and genero.usuario == user %}
+                                <td><a href="{% url 'genero_update' genero.id %}"><i class="fas fa-pencil-alt" style="color: #29864F;"></i></a></td>
+                                <td><a href="{% url 'genero_delete' genero.id %}"><i class="fa-solid fa-trash" style="color: #990000;"></i></a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                    <p>No se han encontrado géneros</p>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Botón "+" para añadir género -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'genero_create' %}" class="btn btn-primary btn-float">
+                <i class="fas fa-plus"></i>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

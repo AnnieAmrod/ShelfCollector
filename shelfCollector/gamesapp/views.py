@@ -4,10 +4,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView
 from django.db import transaction
+from django.utils.html import format_html
 
 from django.db.models import Count, Min
 
-from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
+from .models import (Distribuidor, Desarrollador, Modo, Plataforma, EdadRecomendada, TipoContenido, Coleccion,
                      Programa, Videojuego, Recopilacion, Carpeta)
 from .mixins import (DistribuidorMixin, DesarrolladorMixin, ModoMixin, PlataformaMixin, EdadRecomendadaMixin,
                      TipoContenidoMixin, ColeccionMixin, ProgramaMixin, VideojuegoMixin, RecopilacionMixin)
@@ -31,7 +32,7 @@ class DistribuidorCreateView(AreaRestringidaMixin, DistribuidorMixin, SuccessMes
 
 
 class DistribuidorUpdateView(AreaRestringidaMixin, DistribuidorMixin, SuccessMessageMixin, UpdateView):
-    model = Distibuidor
+    model = Distribuidor
     # fields = ['nombre', 'descripcion']
     # success_url = reverse_lazy('distribuidor_list')
 
@@ -46,7 +47,7 @@ class DistribuidorUpdateView(AreaRestringidaMixin, DistribuidorMixin, SuccessMes
 
 
 class DistribuidorDeleteView(AreaRestringidaMixin, DeleteView):
-    model = Distibuidor
+    model = Distribuidor
     success_url = reverse_lazy('distribuidor')
     template_name = 'gamesapp/distribuidor_confirm_delete.html'
 
@@ -383,6 +384,10 @@ class VideojuegoListView(TemplateView):
 def videojuego_detail_view(request,pk):
     # videojuego = Videojuego.objects.get(pk=pk)
     videojuego = get_object_or_404(Videojuego, pk=pk)
+
+    # Decodificar la sinopsis usando format_html
+    videojuego.sinopsis = format_html(videojuego.sinopsis)
+
     context = {'videojuego': videojuego}
     return render(request,'gamesapp/detalle_videojuego.html',context)
 
@@ -391,16 +396,27 @@ def videojuego_detail_view(request,pk):
     # -------------------------------- Que devuelva la página 404 o el objeto
 def videojuegoView(request, pk):
     videojuego = get_object_or_404(Videojuego, pk=pk)
+
+    # Decodificar la sinopsis usando format_html
+    videojuego.sinopsis = format_html(videojuego.sinopsis)
+
     context = {'videojuego': videojuego}
     return render(request, 'gamesapp/listado_videojuegos.html', context)
 
 
 class VideojuegoDetailView(TemplateView):
     template_name = "gamesapp/detalle_videojuego.html"
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         game_id = kwargs.get('id')
-        context['videojuego'] = Videojuego.objects.get(id=game_id)
+        videojuego = Videojuego.objects.get(id=game_id)
+
+        # Decodificar la sinopsis usando format_html
+        videojuego.sinopsis = format_html(videojuego.sinopsis)
+
+        context['videojuego'] = videojuego
+        # context['videojuego'] = get_object_or_404(Videojuego, id=game_id)
         return context
 
 
@@ -423,11 +439,11 @@ class RecopilacionCreateView(AreaRestringidaMixin, RecopilacionMixin, SuccessMes
         # Asignar el usuario actual al campo 'usuario' del formulario
         form.instance.usuario = user
 
-        # Verificar si ya existe un videojuego con el mismo nombre y usuario
-        if Videojuego.objects.filter(nombre=form.cleaned_data['nombre'],
+        # Verificar si ya existe una recopilación con el mismo nombre y usuario
+        if Recopilacion.objects.filter(nombre=form.cleaned_data['nombre'],
                                      anio=form.cleaned_data['anio'],
                                      usuario=user).exists():
-            form.add_error('nombre', 'Ya existe un videojuego con este nombre y año para tu cuenta.')
+            form.add_error('nombre', 'Ya existe una recopilación con este nombre y año para tu cuenta.')
             return self.form_invalid(form)
 
         with transaction.atomic():
@@ -545,7 +561,7 @@ class RecopilacionListView(TemplateView):
                 if identifier not in seen:
                     seen.add(identifier)
                     unique.append(recopilacion)
-                return unique
+            return unique
 
         # Obtener todas las recopilaciones filtradas
         context['recopilaciones'] = unique_recopilaciones(recopilaciones)

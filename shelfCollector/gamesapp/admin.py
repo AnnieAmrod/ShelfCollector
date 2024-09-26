@@ -3,12 +3,12 @@ from django.utils.html import format_html
 from django.utils.text import Truncator
 
 # Register your models here.
-from .models import (Distibuidor, Desarrollador, Modo, Plataforma, EdadRecomendada,
+from .models import (Distribuidor, Desarrollador, Modo, Plataforma, EdadRecomendada,
                      TipoContenido, Coleccion, Programa, Videojuego, Recopilacion)
 from .forms import VideojuegoAdminForm
 
 
-class DistibuidorAdmin(admin.ModelAdmin):
+class DistribuidorAdmin(admin.ModelAdmin):
     list_display = list_display_links = ['nombre', 'descripcion']
 
 
@@ -191,7 +191,7 @@ class RecopilacionAdmin(admin.ModelAdmin):
     display_videojuegos.short_description = 'Videojuegos'
 
 
-admin.site.register(Distibuidor, DistibuidorAdmin)
+admin.site.register(Distribuidor, DistribuidorAdmin)
 admin.site.register(Desarrollador, DesarrolladorAdmin)
 admin.site.register(Modo, ModoAdmin)
 admin.site.register(Plataforma, PlataformaAdmin)

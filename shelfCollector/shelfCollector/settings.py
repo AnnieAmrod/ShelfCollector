@@ -185,7 +185,12 @@ TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+DEFAULT_CHARSET = 'utf-8'
+FILE_CHARSET = 'utf-8'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -210,7 +215,7 @@ CKEDITOR_CONFIGS = {
             'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
         ],
         #'width': '235px',
-        'height': '220px',
+        'height': '160px',
     }
 }
 

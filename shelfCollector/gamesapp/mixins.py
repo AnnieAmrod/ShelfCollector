@@ -1,5 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Distibuidor
+from .models import Distribuidor
 from django.urls import reverse_lazy
 from .forms import (DistribuidorForm, DesarrolladorForm, ModoForm, PlataformaForm, EdadRecomendadaForm,
                     TipoContenidoForm, ColeccionForm, ProgramaForm, VideojuegoForm, RecopilacionForm)

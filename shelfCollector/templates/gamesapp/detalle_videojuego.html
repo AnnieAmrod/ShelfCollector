@@ -1,0 +1,210 @@
+{% extends 'common/base_gamesapp.html' %}
+
+{% block content %}
+<div class="container mt-5 pb-5">
+    <div class="row">
+        {% if videojuego.img %}
+        <div class="col-12 col-md-12 col-lg-4 mb-3 detail-img">
+            <img src="{{ videojuego.img }}" class="img-fluid rounded {% if videojuego.wish_list or videojuego.tenemos == 'n' %}wishlist-img{% endif %}" alt="{{ videojuego.nombre }}">
+            {% if videojuego.wish_list %}
+                <span class="badge wishlist-badge">Wishlist</span>
+            {% elif videojuego.tenemos == 'n' %}
+            <span class="badge wishlist-badge">No tenemos</span>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="col-md-6 col-lg-4">
+            <! ------------------------------- NOMBRE ----------------------------------->
+            <h2>{{ videojuego.nombre }}</h2>
+            <! ---------------------------- DESCRIPCIÓN --------------------------------->
+            <p><strong>Descripción:</strong> {% if videojuego.descripcion %} {{ videojuego.descripcion|safe }} {% else %} Desconocida {% endif %}</p>
+            <p><strong>Año de publicación:</strong> {{ videojuego.anio }}</p>
+            <! --------------------------- DISTRIBUIDOR -------------------------------->
+            {% if videojuego.distribuidor.count == 1 %}
+                <p><strong>Distribuidor:</strong>
+            {% else %}
+                <p><strong>Distribuidores:</strong>
+            {% endif %}
+            {% if videojuego.distribuidor.count == 1 %}
+                {% for distribuidor in videojuego.distribuidor.all %}
+                    {{ distribuidor }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for distribuidor in videojuego.distribuidor.all %}
+                    <br>· {{ distribuidor }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! --------------------------- DESARROLLADOR -------------------------------->
+            {% if videojuego.desarrollador.count == 1 %}
+                <p><strong>Desarrollador:</strong>
+            {% else %}
+                <p><strong>Desarrolladores:</strong>
+            {% endif %}
+            {% if videojuego.desarrollador.count == 1 %}
+                {% for desarrollador in videojuego.desarrollador.all %}
+                    {{ desarrollador }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for desarrollador in videojuego.desarrollador.all %}
+                    <br>· {{ desarrollador }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! --------------------------- MODO DE JUEGO -------------------------------->
+            {% if videojuego.modo_juego.count == 1 %}
+                <p><strong>Modo de juego:</strong>
+            {% else %}
+                <p><strong>Modos de juego:</strong>
+            {% endif %}
+            {% if videojuego.modo_juego.count == 1 %}
+                {% for modo_juego in videojuego.modo_juego.all %}
+                    {{ modo_juego }}
+                {% endfor %}
+                </p>
+            {% else %}
+                {% for modo_juego in videojuego.modo_juego.all %}
+                    <br>· {{ modo_juego }}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <! ----------------------------- WISHLIST ----------------------------------->
+            <!-- <p><strong>Wishlist:</strong> {% if videojuego.wish_list == True %}Si{% else %}No{% endif %}</p> -->
+            <! ------------------------------- GÉNERO ------------------------------------>
+            {% if videojuego.genero.count == 1 %}
+                <p><strong>Género:</strong>
+            {% else %}
+                <p><strong>Géneros:</strong>
+            {% endif %}
+            {% if videojuego.genero.count == 1 %}
+                {% for genero in videojuego.genero.all %}
+                    {{ genero }}
+                {% endfor %}
+                </p>
+            {% else %}
+            <br>
+                {% for genero in videojuego.genero.all %}
+                    {{ genero }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <! ------------------------------ SINOPSIS ---------------------------------->
+            <!-- Sinopsis con funcionalidad de "Leer más" -->
+            {% if videojuego.sinopsis %}
+                <p><strong>Sinopsis:</strong></p>
+                <p id="sinopsis-preview">
+                    {{ videojuego.sinopsis|striptags|linebreaksbr|slice:":200" }}{% if videojuego.sinopsis|striptags|length > 200 %}...{% endif %}
+                </p>
+                {% if videojuego.sinopsis|striptags|length > 200 %}
+                    <p id="sinopsis-full" style="display: none;">
+                        {{ videojuego.sinopsis|striptags|linebreaksbr }}
+                    </p>
+                    <a href="javascript:void(0);" onclick="toggleReadMore()" id="read-more-link">Leer más</a>
+                {% endif %}
+            {% else %}
+                <p>Desconocida</p>
+            {% endif %}
+            <br>
+            <br>
+            <! ------------------------------- PRECIO ----------------------------------->
+            {% if videojuego.formato != 'p' %}<p><strong>Precio:</strong> {% if videojuego.precio %}{{videojuego.precio}}{% else %}Desconocido{% endif %}</p> {% endif %}
+            <! ----------------------------- PLATAFORMA ---------------------------------->
+            {% if videojuego.plataforma.count == 1 %}
+                <p><strong>Plataforma:</strong>
+            {% else %}
+                <p><strong>Plataformas:</strong>
+            {% endif %}
+            {% if videojuego.plataforma.count == 1 %}
+                {% for plataforma in videojuego.plataforma.all %}
+                    {{ plataforma }}
+                {% endfor %}
+                </p>
+            {% else %}
+            <br>
+                {% for plataforma in videojuego.plataforma.all %}
+                    {{ plataforma }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+            <p><strong>Edad recomendada:</strong> {{ videojuego.edad_recomendada }}</p>
+            <! ------------------------- TIPO DE CONTENIDO ------------------------------>
+            {% if videojuego.tipo_contenido.exists %}
+                {% if videojuego.tipo_contenido.count == 1 %}
+                    <p><strong>Tipo de contenido:</strong>
+                {% else %}
+                    <p><strong>Tipos de contenido:</strong>
+                {% endif %}
+                {% if videojuego.tipo_contenido.count == 1 %}
+                    {% for tipo_contenido in videojuego.tipo_contenido.all %}
+                        {{ tipo_contenido }}
+                    {% endfor %}
+                    </p>
+                {% else %}
+                <br>
+                    {% for tipo_contenido in videojuego.tipo_contenido.all %}
+                        {{ tipo_contenido }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            {% endif %}
+            <! ------------------------------ TENEMOS ----------------------------------->
+            <p><strong>Tenemos:</strong> {% if videojuego.tenemos == 'j' %}Juego{% elif videojuego.tenemos == 'n' %}No tenemos{% elif videojuego.tenemos == 'r' %}Recopilación{% endif %}</p>
+            <! ----------------------------- COLECCIÓN ---------------------------------->
+            {% if videojuego.coleccion %} <p><strong>Colección:</strong> {{ videojuego.coleccion }}</p> {% endif %}
+            <! ------------------------------ FORMATO ----------------------------------->
+            {% if videojuego.formato %}
+                <p><strong>Formato:</strong>
+                    {% if videojuego.formato == 'f' %}Físico
+                    {% elif videojuego.formato == 'd' %}Digital
+                        {% if videojuego.programa.all %}
+                            ({{ videojuego.programa.all|join:", " }})
+                        {% else %}
+                            (N/A)
+                        {% endif %}
+                    {% elif videojuego.formato == 'p' %}Pirata
+                    {% elif videojuego.formato == 'c' %}Código de descarga
+                    {% endif %}
+                </p>
+                {% if videojuego.formato == 'd' and videojuego.carpeta.exists %} <p><strong>Carpeta:</strong> {{ videojuego.carpeta }}</p> {% endif %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'videojuego_update' pk=videojuego.id %}" class="btn">Editar</a>
+            {% endif %}
+            <a href="{% url 'videojuegos' %}" class="btn">Volver</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleReadMore() {
+        var previewText = document.getElementById("sinopsis-preview");
+        var fullText = document.getElementById("sinopsis-full");
+        var readMoreLink = document.getElementById("read-more-link");
+
+        if (fullText.style.display === "none") {
+            previewText.style.display = "none";  // Oculta el texto corto
+            fullText.style.display = "block";    // Muestra el texto completo
+            readMoreLink.innerHTML = "Leer menos";
+        } else {
+            previewText.style.display = "block"; // Muestra el texto corto
+            fullText.style.display = "none";     // Oculta el texto completo
+            readMoreLink.innerHTML = "Leer más";
+        }
+    }
+
+    // Inicializar el estado del texto largo como oculto
+    document.addEventListener("DOMContentLoaded", function() {
+        var fullText = document.getElementById("sinopsis-full");
+        if (fullText) {
+            fullText.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}
+
+
+

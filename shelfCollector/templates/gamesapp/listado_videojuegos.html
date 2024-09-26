@@ -1,14 +1,13 @@
 {% extends 'common/base_gamesapp.html' %}
 
 
-
-{% load distribuidores_dropdown %}
-{% load desarrolladores_dropdown %}
-{% load modos_juego_dropdown %}
-{% load generos_dropdown %}
-{% load plataformas_dropdown %}
-{% load colecciones_dropdown %}
-{% load carpetas_dropdown %}
+{% load distribuidores_dropdown_v %}
+{% load desarrolladores_dropdown_v %}
+{% load modos_juego_dropdown_v %}
+{% load generos_dropdown_v %}
+{% load plataformas_dropdown_v %}
+{% load colecciones_dropdown_v %}
+{% load carpetas_dropdown_v %}
 
 
 {% block content %}
@@ -18,13 +17,31 @@
         <div class="col-md-3">
             <h2>Filtros</h2>
             <hr>
-                {% distribuidor_dropdown %}
-                {% desarrollador_dropdown %}
-                {% modo_juego_dropdown %}
-                {% genero_dropdown %}
-                {% plataforma_dropdown %}
-                {% coleccion_dropdown %}
-                {% carpeta_dropdown %}
+            <div class="row">
+                <div class="col-6 col-md-12 mb-2">
+                    {% distribuidor_dropdown_v %}
+                </div>
+                <div class="col-6 col-md-12 mb-2">
+                    {% desarrollador_dropdown_v %}
+                </div>
+                <div class="col-6 col-md-12 mb-2">
+                    {% modo_juego_dropdown_v %}
+                </div>
+                <div class="col-6 col-md-12 mb-2">
+                    {% genero_dropdown_v %}
+                </div>
+                <div class="col-6 col-md-12 mb-2">
+                    {% plataforma_dropdown_v %}
+                </div>
+                <div class="col-6 col-md-12 mb-2">
+                    {% coleccion_dropdown_v %}
+                </div>
+                {% if carpetas %}
+                <div class="col-6 col-md-12 mb-2">
+                    {% carpeta_dropdown_v %}
+                </div>
+                {% endif %}
+            </div>
             <form method="GET">
 
                 <hr>
@@ -51,25 +68,30 @@
             <div class="row">
                 {% if videojuegos %}
                     {% for videojuego in videojuegos %}
-                        <div class="col-md-2 mb-3">
-                            {% if user.is_authenticated and videojuego.usuario == user %}
-                            <a href="{% url 'videojuego_update' pk=videojuego.id %}">
-                            {% else %}
+                        <div class="col-sm-4 col-xl-2 mb-3">
                             <a href="{% url 'videojuego_detail' id=videojuego.id %}">
-                            {% endif %}
                                 <div class="card game">
                                     {% if videojuego.img %}
-                                        <img src="{{ videojuego.img }}" class="card-img-top {% if videojuego.wish_list %}wishlist-img{% endif %}" alt="{{ videojuego.nombre }}">
-                                        {% if videojuego.wish_list %}
-                                            <span class="badge badge-warning wishlist-badge">Wishlist</span>
-                                        {% endif %}
+                                        <img src="{{ videojuego.img }}" class="card-img-top {% if videojuego.wish_list or videojuego.tenemos == 'n' %}wishlist-img{% endif %}" alt="{{ videojuego.nombre }}">
+                                    {% endif %}
+                                    {% if videojuego.wish_list %}
+                                        <span class="badge wishlist-badge">Wishlist</span>
+                                    {% elif videojuego.tenemos == 'n' %}
+                                        <span class="badge wishlist-badge">No tenemos</span>
                                     {% endif %}
                                     <div class="card-body game">
-                                        <h2 class="card-title h5">{{ videojuego.nombre }}</h5>
+                                        <h2 class="card-title h5">{{ videojuego.nombre }}</h2>
                                         {% if videojuego.descripcion|length > 70 %}
                                         <p class="card-text">{{ videojuego.descripcion|safe|slice:":70" }}...</p>
-                                        {% else %}
+                                        {% elif recopilacion.descripcion|length < 70 %}
                                         <p class="card-text">{{ videojuego.descripcion|safe }}</p>
+                                        {% elif recopilacion.descripcion|length == 0 %}
+                                        <p class="card-text d-none"></p>
+                                        {% endif %}
+                                        {% if user.is_authenticated and videojuego.usuario == user %}
+                                            <a href="{% url 'videojuego_update' pk=videojuego.id %}" class="edit-icon position-absolute">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -81,6 +103,12 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Botón "+" para añadir videojuego -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'videojuego_create' %}" class="btn btn-primary btn-float">
+                <i class="fas fa-plus"></i>
+            </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
